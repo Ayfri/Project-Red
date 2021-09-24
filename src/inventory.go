@@ -15,7 +15,7 @@ func (inventory Inventory) show(priced bool) {
 		if priced {
 			fmt.Printf("%v. %v: %v (Price: %v)\n", i, name, item.count, item.price)
 		} else {
-			fmt.Printf("%v. %v: %v\n", i, name, item)
+			fmt.Printf("%v. %v: %v\n", i, name, item.count)
 		}
 	}
 }
