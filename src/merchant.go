@@ -3,7 +3,7 @@ package main
 var merchant = Inventory{
 	"Health Potions": Item{
 		count: 1,
-		name:  "Health Potion",
+		name:  healthPotion,
 		price: 3,
 		onUse: func() {
 			character.takeHealthPotion()
@@ -11,7 +11,7 @@ var merchant = Inventory{
 	},
 	"Poisonous Potion": Item{
 		count: 1,
-		name:  "Poisonous Potion",
+		name:  poisonousPotion,
 		price: 6,
 		onUse: func() {
 			character.takePoisonPotion()
@@ -19,30 +19,30 @@ var merchant = Inventory{
 	},
 	"Fireball Spellbook": Item{
 		count: 1,
-		name:  "Fireball Spellbook",
+		name:  fireballSpellbook,
 		price: 25,
 		onUse: func() {
-			character.spellBook("Fireball Spellbook")
+			character.spellBook(fireballSpellbook)
 		},
 	},
 	"Wolf Fur": Item{
-		count: 1,
-		name:  "Wolf Fur",
+		count: 10,
+		name:  wolfFur,
 		price: 4,
 	},
 	"Troll Skins": Item{
-		count: 1,
-		name:  "Troll Skin",
+		count: 10,
+		name:  trollSkin,
 		price: 7,
 	},
 	"Boar's Leathers": Item{
-		count: 1,
-		name: "Leather's Boar",
+		count: 10,
+		name: boarFur,
 		price: 3,
 	},
 	"Crow's Leathers": Item{
-		count: 1,
-		name: "Crow's Leather",
+		count: 10,
+		name: crowFeather,
 		price: 1,
 	},
 }

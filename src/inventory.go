@@ -2,20 +2,34 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 )
 
 type Inventory map[string]Item
 
-func (inventory Inventory) show(priced bool) {
-	i := 0
-	for name, item := range inventory {
-		i++
-		if priced {
-			fmt.Printf("%v. %v: %v (Price: %v)\n", i, name, item.count, item.price)
-		} else {
-			fmt.Printf("%v. %v: %v\n", i, name, item.count)
+type SelectorType int
+
+const (
+	Merchant SelectorType = iota
+	PlayerInventory
+	Blacksmith
+)
+
+func (inventory Inventory) show(selectorType SelectorType) {
+	keys := inventory.keys()
+	sort.Strings(keys)
+
+	for i, name := range keys {
+		item := inventory[name]
+		switch selectorType {
+		case Merchant:
+			fmt.Printf("%v. %v: %v (Price: %v)\n", i + 1, name, item.count, item.price)
+		case PlayerInventory:
+			fmt.Printf("%v. %v: %v\n", i + 1, name, item.count)
+		case Blacksmith:
+			fmt.Printf("%v. %v (Requires: %v)\n", i + 1, name, item.forgingRequires)
 		}
 	}
 }
@@ -41,9 +55,11 @@ func (inventory *Inventory) removeItem(name string, count int) {
 	}
 }
 
-func (inventory *Inventory) makeSelector(priced bool, whenQuit func()) {
+func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit func()) {
 	fmt.Println("Select the item you want : (q to quit)")
-	inventory.show(priced)
+	keys := inventory.keys()
+	sort.Strings(keys)
+	inventory.show(selectorType)
 
 	for {
 		input, _ := reader.ReadString('\n')
@@ -58,17 +74,31 @@ func (inventory *Inventory) makeSelector(priced bool, whenQuit func()) {
 		}
 
 		i := 1
-		for name, item := range *inventory {
+		for _, name := range keys {
+			item := (*inventory)[name]
 			if number == i {
-				inventory.removeItem(name, i)
-
-				if priced {
+				switch selectorType {
+				case Merchant:
+					if character.money < item.price {
+						fmt.Printf("You need '%v' more money to buy '%v'.", -(character.money - item.price), item.name)
+						continue
+					}
+					inventory.removeItem(name, i)
 					fmt.Printf("One '%v' bought.\n", item.name)
-				} else {
+				case PlayerInventory:
 					if item.onUse != nil {
 						item.onUse()
 					}
+					inventory.removeItem(name, i)
 					fmt.Printf("One '%v' used.\n", item.name)
+				case Blacksmith:
+					if canForge, forgeErr := character.canForge(item); canForge {
+						character.forgeItem(item)
+						inventory.removeItem(name, i)
+						fmt.Printf("One '%v' crafted.\n", item.name)
+					} else {
+						fmt.Println(forgeErr)
+					}
 				}
 
 				break

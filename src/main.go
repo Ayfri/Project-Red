@@ -20,12 +20,15 @@ func main() {
 			character.displayInfo()
 			showMainMenu()
 		case '2':
-			fmt.Println("Inventory: ")
-			character.inventory.makeSelector(false,showMainMenu)
+			fmt.Println("Inventory:")
+			character.inventory.makeSelector(PlayerInventory, showMainMenu)
 		case '3':
-			fmt.Println("Merchant: ")
-			merchant.makeSelector(true, showMainMenu)
+			fmt.Println("Merchant:")
+			merchant.makeSelector(Merchant, showMainMenu)
 		case '4':
+			fmt.Println("Blacksmith:")
+			blacksmith.makeSelector(Blacksmith, showMainMenu)
+		case '5':
 			os.Exit(1)
 		}
 	}
@@ -38,7 +41,8 @@ Select something :
 1: Show character information.
 2: Show inventory.
 3: Speak to Merchant.
-4: Quit`)
+4: Speak to blacksmith.
+5: Quit`)
 }
 
 func Init() {
@@ -62,5 +66,11 @@ func Init() {
 				},
 			},
 		},
+	}
+
+	for _, item := range blacksmith {
+		item.onUse = func() {
+			character.forgeItem(item)
+		}
 	}
 }
