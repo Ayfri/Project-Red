@@ -41,7 +41,7 @@ Select something :
 1: Show character information.
 2: Show inventory.
 3: Speak to Merchant.
-4: Speak to blacksmith.
+4: Speak to Blacksmith.
 5: Quit`)
 }
 

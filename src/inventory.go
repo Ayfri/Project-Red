@@ -84,6 +84,10 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 						continue
 					}
 					inventory.removeItem(name, i)
+
+					receivingItem := item
+					receivingItem.count = 1
+					character.inventory.addItem(receivingItem)
 					fmt.Printf("One '%v' bought.\n", item.name)
 				case PlayerInventory:
 					if item.onUse != nil {
