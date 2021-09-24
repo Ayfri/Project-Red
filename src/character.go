@@ -11,6 +11,7 @@ type Character struct {
 	maxHealth int
 	health    int
 	skill     []string
+	money     int
 	inventory Inventory
 }
 
@@ -22,7 +23,7 @@ func (character Character) dead() {
 	}
 }
 
-func(character Character) spellBook(name string) {
+func (character Character) spellBook(name string) {
 	if Contains(make([]interface{}, len(character.skill)), name) {
 		fmt.Printf("You already have the spell '%v'.", name)
 		return
@@ -38,11 +39,13 @@ Name: %v
 Class: %v
 Health: %v/%v
 Lvl: %v
+Money: %v
 `,
 		character.name,
 		character.class,
 		character.health,
 		character.maxHealth,
 		character.lvl,
+		character.money,
 	)
 }

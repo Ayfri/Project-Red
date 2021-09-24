@@ -14,21 +14,15 @@ var reader = bufio.NewReader(os.Stdin)
 func main() {
 	Init()
 	var input string
-	fmt.Printf("%v", input)
-	fmt.Println(`
-Select something :
-
-1: Show character information.
-2: Show inventory.
-3: Speak to Merchant.
-4: Quit`)
+	showMainMenu()
 	for {
 		input, _ = reader.ReadString('\n')
 		switch input[0] {
 		case '1':
 			displayInfo(character)
+			showMainMenu()
 		case '2':
-			accessInventory(character.inventory, true)
+			accessInventory(character.inventory)
 			fmt.Println("Press q to quit.")
 			for {
 				input, _ = reader.ReadString('\n')
@@ -56,10 +50,21 @@ Select something :
 			}
 		case '3':
 			displayMerchant()
+			showMainMenu()
 		case '4':
 			os.Exit(1)
 		}
 	}
+}
+
+func showMainMenu() {
+	fmt.Println(`
+Select something :
+
+1: Show character information.
+2: Show inventory.
+3: Speak to Merchant.
+4: Quit`)
 }
 
 func Init() {
@@ -69,11 +74,16 @@ func Init() {
 		lvl:       1,
 		maxHealth: 100,
 		health:    40,
+		money:     100,
 		skill: []string{
 			"Punch",
 		},
 		inventory: Inventory{
-			"Potions": 3,
+			"Health Potions": Item{
+				count: 3,
+				name:  "Health Potion",
+				price: 0,
+			},
 		},
 	}
 }

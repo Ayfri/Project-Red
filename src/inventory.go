@@ -2,24 +2,34 @@ package main
 
 import "fmt"
 
-type Inventory map[string]int
+type Item struct{
+	count int
+	name string
+	price int
+}
+type Inventory map[string]Item
 
-func accessInventory(inventory Inventory, selectItem bool) {
+func accessInventory(inventory Inventory) {
 	fmt.Println("Inventory: ")
 	i := 0
-	for k, v := range inventory {
+	for name, item := range inventory {
 		i++
-		if selectItem {
-			fmt.Printf("%v. ", i)
-		}
-		fmt.Printf("%v: %v\n", k, v)
+		fmt.Printf("%v. %v: %v\n", i, name, item)
+	}
+}
+
+func accessPricedInventory(inventory Inventory) {
+	i := 0
+	for name, item := range inventory {
+		i++
+		fmt.Printf("%v. %v: %v (Price: %v)\n", i, name, item.count, item.price)
 	}
 }
 
 func takePot(name string) {
-	for potName, potCount := range character.inventory {
+	for potName := range character.inventory {
 		if name == potName {
-			potCount--
+			character.inventory.removeItem(name, 1)
 		}
 
 		if name == "Potions" {
@@ -33,17 +43,23 @@ func takePot(name string) {
 	fmt.Printf("Health : %v/%v", character.health, character.maxHealth)
 }
 
-func (inventory Inventory) addItem(item string, count int) {
-	inventory[item] += count
+func (inventory *Inventory) addItem(item Item) {
+	if val, ok := (*inventory)[item.name]; ok {
+		val.count += item.count
+		(*inventory)[item.name] = val
+	} else {
+		(*inventory)[item.name] = item
+	}
 }
 
-func (inventory Inventory) removeItem(item string, count int) {
-	if _, ok := inventory[item]; !ok {
+func (inventory *Inventory) removeItem(name string, count int) {
+	if item, ok := (*inventory)[name]; !ok {
 		return
-	}
-
-	inventory[item] -= count
-	if inventory[item] <= 0 {
-		delete(inventory, item)
+	} else {
+		item.count -= count
+		if item.count <= 0 {
+			delete(*inventory, name)
+		}
+		(*inventory)[name] = item
 	}
 }
