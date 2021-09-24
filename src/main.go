@@ -61,16 +61,10 @@ func Init() {
 				count: 3,
 				name:  "Health Potion",
 				price: 0,
-				onUse: func() {
+				onUse: func(item Item) {
 					character.takeHealthPotion()
 				},
 			},
 		},
-	}
-
-	for _, item := range blacksmith {
-		item.onUse = func() {
-			character.forgeItem(item)
-		}
 	}
 }

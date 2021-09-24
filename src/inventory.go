@@ -25,11 +25,11 @@ func (inventory Inventory) show(selectorType SelectorType) {
 		item := inventory[name]
 		switch selectorType {
 		case Merchant:
-			fmt.Printf("%v. %v: %v (Price: %v)\n", i + 1, name, item.count, item.price)
+			fmt.Printf("%v. %v: %v (Price: %v)\n", i+1, name, item.count, item.price)
 		case PlayerInventory:
-			fmt.Printf("%v. %v: %v\n", i + 1, name, item.count)
+			fmt.Printf("%v. %v: %v\n", i+1, name, item.count)
 		case Blacksmith:
-			fmt.Printf("%v. %v (Requires: %v)\n", i + 1, name, item.forgingRequires)
+			fmt.Printf("%v. %v (Requires: %v)\n", i+1, name, item.forgingRequires)
 		}
 	}
 }
@@ -91,10 +91,14 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 					fmt.Printf("One '%v' bought.\n", item.name)
 				case PlayerInventory:
 					if item.onUse != nil {
-						item.onUse()
+						item.onUse(item)
 					}
 					inventory.removeItem(name, i)
-					fmt.Printf("One '%v' used.\n", item.name)
+					if item.equipmentType == Head || item.equipmentType == Tunic || item.equipmentType == Boots {
+						fmt.Printf("'%v' equiped.\n", item.name)
+					} else {
+						fmt.Printf("One '%v' used.\n", item.name)
+					}
 				case Blacksmith:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)

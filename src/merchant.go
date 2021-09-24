@@ -5,7 +5,7 @@ var merchant = Inventory{
 		count: 1,
 		name:  healthPotion,
 		price: 3,
-		onUse: func() {
+		onUse: func(item Item) {
 			character.takeHealthPotion()
 		},
 	},
@@ -13,7 +13,7 @@ var merchant = Inventory{
 		count: 1,
 		name:  poisonousPotion,
 		price: 6,
-		onUse: func() {
+		onUse: func(item Item) {
 			character.takePoisonPotion()
 		},
 	},
@@ -21,7 +21,7 @@ var merchant = Inventory{
 		count: 1,
 		name:  fireballSpellbook,
 		price: 25,
-		onUse: func() {
+		onUse: func(item Item) {
 			character.spellBook(fireballSpellbook)
 		},
 	},
