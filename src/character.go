@@ -12,8 +12,23 @@ type Character struct {
 	health    int
 	skill     []string
 	money     int
+	equipment Equipment
 	inventory Inventory
 }
+
+type Equipment struct {
+	head  Item
+	tunic Item
+	boots Item
+}
+
+type EquipmentType int
+
+const (
+	Head EquipmentType = iota
+	Tunic
+	Boots
+)
 
 func (character Character) dead() {
 	if character.health >= 0 {
