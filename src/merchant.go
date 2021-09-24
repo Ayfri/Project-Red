@@ -36,6 +36,7 @@ func displayMerchant() {
 		}
 
 		if input[0] == 'q' {
+			showMainMenu()
 			break
 		}
 
@@ -47,11 +48,8 @@ func displayMerchant() {
 				merchant.removeItem(name, 1)
 				character.inventory.addItem(item)
 				fmt.Printf("One '%v' bought.\n", name)
-				break
 			}
 			i++
 		}
-
-		break
 	}
 }

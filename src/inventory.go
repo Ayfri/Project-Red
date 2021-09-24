@@ -57,9 +57,19 @@ func (inventory *Inventory) removeItem(name string, count int) {
 		return
 	} else {
 		item.count -= count
+		(*inventory)[name] = item
 		if item.count <= 0 {
 			delete(*inventory, name)
 		}
-		(*inventory)[name] = item
 	}
+}
+
+func (inventory *Inventory) debug() string {
+	var result string
+
+	for name, item := range *inventory {
+		result += fmt.Sprintf("{%v, count=%d, name=%s, price=%d}", name, item.count, item.name, item.price)
+	}
+
+	return result
 }

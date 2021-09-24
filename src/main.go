@@ -20,7 +20,6 @@ func main() {
 		switch input[0] {
 		case '1':
 			displayInfo(character)
-			showMainMenu()
 		case '2':
 			accessInventory(character.inventory)
 			fmt.Println("Press q to quit.")
@@ -50,7 +49,6 @@ func main() {
 			}
 		case '3':
 			displayMerchant()
-			showMainMenu()
 		case '4':
 			os.Exit(1)
 		}
