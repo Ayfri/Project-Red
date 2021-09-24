@@ -23,6 +23,10 @@ func (character Character) dead() {
 	}
 }
 
+func (character *Character) showHealth() {
+	fmt.Printf("Health : %v/%v\n", character.health, character.maxHealth)
+}
+
 func (character Character) spellBook(name string) {
 	if Contains(make([]interface{}, len(character.skill)), name) {
 		fmt.Printf("You already have the spell '%v'.", name)
@@ -32,7 +36,7 @@ func (character Character) spellBook(name string) {
 	character.inventory.removeItem(name, 1)
 }
 
-func displayInfo(character Character) {
+func (character Character) displayInfo() {
 	fmt.Printf(
 		`
 Name: %v

@@ -4,8 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
-	"strings"
 )
 
 var character Character
@@ -19,36 +17,14 @@ func main() {
 		input, _ = reader.ReadString('\n')
 		switch input[0] {
 		case '1':
-			displayInfo(character)
+			character.displayInfo()
+			showMainMenu()
 		case '2':
-			accessInventory(character.inventory)
-			fmt.Println("Press q to quit.")
-			for {
-				input, _ = reader.ReadString('\n')
-				number, err := strconv.Atoi(strings.TrimSpace(input))
-				if input[0] == 'q' {
-					break
-				}
-
-				if err != nil || number < 0 || number > len(merchant) {
-					continue
-				}
-
-				i := 1
-				for name := range character.inventory {
-					if number == i {
-						character.inventory.removeItem(name, 1)
-						fmt.Printf("One '%v' used.\n", name)
-						if strings.Contains(strings.ToLower(name), "spellbook") {
-							character.spellBook(name)
-						}
-						break
-					}
-					i++
-				}
-			}
+			fmt.Println("Inventory: ")
+			character.inventory.makeSelector(false,showMainMenu)
 		case '3':
-			displayMerchant()
+			fmt.Println("Merchant: ")
+			merchant.makeSelector(true, showMainMenu)
 		case '4':
 			os.Exit(1)
 		}
@@ -81,6 +57,9 @@ func Init() {
 				count: 3,
 				name:  "Health Potion",
 				price: 0,
+				onUse: func() {
+					character.takeHealthPotion()
+				},
 			},
 		},
 	}
