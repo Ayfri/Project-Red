@@ -87,6 +87,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 
 					receivingItem := item
 					receivingItem.count = 1
+					character.money -= item.price
 					character.inventory.addItem(receivingItem)
 					fmt.Printf("One '%v' bought.\n", item.name)
 				case PlayerInventory:
