@@ -46,7 +46,7 @@ func (character *Character) spellBook(name string) {
 	character.inventory.removeItem(name, 1)
 }
 
-func (character Character) displayInfo() {
+func (character *Character) displayInfo() {
 	fmt.Printf(
 		`
 Name: %v

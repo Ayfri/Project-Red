@@ -17,12 +17,12 @@ const (
 	Blacksmith
 )
 
-func (inventory Inventory) show(selectorType SelectorType) {
+func (inventory *Inventory) show(selectorType SelectorType) {
 	keys := inventory.keys()
 	sort.Strings(keys)
 
 	for i, name := range keys {
-		item := inventory[name]
+		item := (*inventory)[name]
 		switch selectorType {
 		case Merchant:
 			fmt.Printf("%v. %v: %v (Price: %v)\n", i+1, name, item.count, item.price)

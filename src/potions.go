@@ -19,7 +19,7 @@ func (character *Character) takePoisonPotion() {
 	}
 }
 
-func (character * Character) takeHealthPotion() {
+func (character *Character) takeHealthPotion() {
 	for _, item := range character.inventory {
 		if item.name == healthPotion {
 			character.health += 50
