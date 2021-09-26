@@ -1,5 +1,7 @@
 package main
 
+import "strconv"
+
 func Contains(array []interface{}, value interface{}) bool {
 	for _, a := range array {
 		if a == value {
@@ -42,4 +44,8 @@ func DifferentKeys(a map[string]int, b Inventory) []string {
 	}
 
 	return Difference(aKeys, bKeys)
+}
+
+func str(number int) string {
+	return strconv.Itoa(number)
 }

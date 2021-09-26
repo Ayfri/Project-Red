@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"sort"
 	"strconv"
 	"strings"
@@ -23,13 +24,16 @@ func (inventory *Inventory) show(selectorType SelectorType) {
 
 	for i, name := range keys {
 		item := (*inventory)[name]
+		count := str(item.count)
+		index := color.CyanString(str(i + 1))
+
 		switch selectorType {
 		case Merchant:
-			fmt.Printf("%v. %v: %v (Price: %v)\n", i+1, name, item.count, item.price)
+			colorFprintf("%v. %v: %v %v\n", index, name, color.GreenString(count), color.YellowString("(Price: %v)", str(item.price)))
 		case PlayerInventory:
-			fmt.Printf("%v. %v: %v\n", i+1, name, item.count)
+			colorFprintf("%v. %v: %v\n", index, name, color.GreenString(count))
 		case Blacksmith:
-			fmt.Printf("%v. %v (Requires: %v)\n", i+1, name, item.forgingRequires)
+			colorFprintf("%v. %v (Requires: %v)\n", index, name, item.forgingRequires.show())
 		}
 	}
 }
@@ -56,7 +60,7 @@ func (inventory *Inventory) removeItem(name string, count int) {
 }
 
 func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit func()) {
-	fmt.Println("Select the item you want : (q to quit)")
+	colorFprintf(boldString("Select the item you want : %v\n"), color.RedString("(q to quit)"))
 	keys := inventory.keys()
 	sort.Strings(keys)
 	inventory.show(selectorType)
@@ -80,7 +84,11 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 				switch selectorType {
 				case Merchant:
 					if character.money < item.price {
-						fmt.Printf("You need '%v' more money to buy '%v'.", -(character.money - item.price), item.name)
+						colorFprintf(
+							"You need %v more money to buy %v.\n",
+							color.YellowString(str(-(character.money - item.price))),
+							color.BlueString(item.name),
+						)
 						continue
 					}
 					inventory.removeItem(name, i)
@@ -89,22 +97,22 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 					receivingItem.count = 1
 					character.money -= item.price
 					character.inventory.addItem(receivingItem)
-					fmt.Printf("One '%v' bought.\n", item.name)
+					itemTaken("One %v bought.\n", item.name)
 				case PlayerInventory:
 					if item.onUse != nil {
 						item.onUse(item)
 					}
 					inventory.removeItem(name, i)
 					if item.equipmentType == Head || item.equipmentType == Tunic || item.equipmentType == Boots {
-						fmt.Printf("'%v' equiped.\n", item.name)
+						itemTaken("%v equipped.\n", item.name)
 					} else {
-						fmt.Printf("One '%v' used.\n", item.name)
+						itemTaken("One %v used.\n", item.name)
 					}
 				case Blacksmith:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
 						inventory.removeItem(name, i)
-						fmt.Printf("One '%v' crafted.\n", item.name)
+						itemTaken("One %v crafted.\n", item.name)
 					} else {
 						fmt.Println(forgeErr)
 					}

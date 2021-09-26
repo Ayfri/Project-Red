@@ -2,16 +2,19 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"strings"
 )
+
+type ForgingRequires map[string]int
 
 var blacksmith = Inventory{
 	"Adventurer's Hats": Item{
 		count:           1,
 		name:            "Adventurer's Hat",
-		forgingRequires: map[string]int{crowFeather: 1, boarFur: 1},
+		forgingRequires: ForgingRequires{crowFeather: 1, boarFur: 1},
 		forgingPrice:    5,
-		equipmentType: 	Head,
+		equipmentType:   Head,
 		onUse: func(item Item) {
 			character.equip(item)
 		},
@@ -19,9 +22,9 @@ var blacksmith = Inventory{
 	"Adventurer's Tunics": Item{
 		count:           1,
 		name:            "Adventurer's Tunic",
-		forgingRequires: map[string]int{wolfFur: 2, boarFur: 1},
+		forgingRequires: ForgingRequires{wolfFur: 2, boarFur: 1},
 		forgingPrice:    5,
-		equipmentType: Tunic,
+		equipmentType:   Tunic,
 		onUse: func(item Item) {
 			character.equip(item)
 		},
@@ -29,9 +32,9 @@ var blacksmith = Inventory{
 	"Adventurer's Boots": Item{
 		count:           1,
 		name:            "Adventurer's Boots",
-		forgingRequires: map[string]int{wolfFur: 1, boarFur: 1},
+		forgingRequires: ForgingRequires{wolfFur: 1, boarFur: 1},
 		forgingPrice:    5,
-		equipmentType: Boots,
+		equipmentType:   Boots,
 		onUse: func(item Item) {
 			character.equip(item)
 		},
@@ -40,20 +43,28 @@ var blacksmith = Inventory{
 
 func (character *Character) canForge(item Item) (bool, string) {
 	if character.money-item.forgingPrice < 0 {
-		return false, fmt.Sprintf("You don't have enough money to forge '%v'.", item.name)
+		return false, fmt.Sprintf("You don't have enough money to forge %v.", color.BlueString(item.name))
 	}
 
 	missingItems := DifferentKeys(item.forgingRequires, character.inventory)
 
 	if len(missingItems) > 0 {
-		return false, fmt.Sprintf("You need '%v' to craft '%v'.", strings.Join(missingItems, " & "), item.name)
+		return false, fmt.Sprintf(
+			"You need %v to craft %v.",
+			color.BlueString(strings.Join(missingItems, " & ")),
+			color.BlueString(item.name),
+		)
 	}
 
 	if item.forgingRequires != nil {
 		for _, inventoryItem := range character.inventory {
 			for name, count := range item.forgingRequires {
 				if strings.Contains(inventoryItem.name, name) && inventoryItem.count-count < 0 {
-					return false, fmt.Sprintf("You need %v more '%v' to craft this item.\n", -(inventoryItem.count - count), inventoryItem.name)
+					return false, fmt.Sprintf(
+						"You need %v more %v to craft this item.\n",
+						color.CyanString(str(-(inventoryItem.count - count))),
+						color.BlueString(inventoryItem.name),
+					)
 				}
 			}
 		}
@@ -64,7 +75,7 @@ func (character *Character) canForge(item Item) (bool, string) {
 
 func (character *Character) forgeItem(item Item) {
 	if canForge, err := character.canForge(item); !canForge {
-		fmt.Println(err)
+		colorFprintf(err)
 		return
 	}
 
@@ -81,4 +92,13 @@ func (character *Character) forgeItem(item Item) {
 	resultingItem := item
 	resultingItem.count = 1
 	character.inventory.addItem(resultingItem)
+}
+
+// TODO : Delete this func
+func (forgingRequires *ForgingRequires) show() string {
+	var result []string
+	for name, count := range *forgingRequires {
+		result = append(result, fmt.Sprintf("%v:%v", color.BlueString(name), color.CyanString(str(count))))
+	}
+	return strings.Join(result, ", ")
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/fatih/color"
 	"os"
 )
 
@@ -35,14 +36,12 @@ func main() {
 }
 
 func showMainMenu() {
-	fmt.Println(`
-Select something :
-
-1: Show character information.
-2: Show inventory.
-3: Speak to Merchant.
-4: Speak to Blacksmith.
-5: Quit`)
+	boldFunc("Select something :")
+	color.Cyan("1: Show character information.")
+	color.Green("2: Show inventory.")
+	color.Magenta("3: Speak to Merchant.")
+	color.Yellow("4: Speak to Blacksmith.")
+	color.Red("5: Quit")
 }
 
 func Init() {
@@ -52,7 +51,7 @@ func Init() {
 		lvl:       1,
 		maxHealth: 100,
 		health:    40,
-		money:     100,
+		money:     1,
 		skill: []string{
 			"Punch",
 		},

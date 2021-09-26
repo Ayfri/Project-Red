@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 )
 
 func (character *Character) dead() {
@@ -39,7 +40,7 @@ func (character *Character) showHealth() {
 
 func (character *Character) spellBook(name string) {
 	if Contains(make([]interface{}, len(character.skill)), name) {
-		fmt.Printf("You already have the spell '%v'.", name)
+		colorFprintf("You already have the spell %v.", color.CyanString(name))
 		return
 	}
 	character.skill = append(character.skill, "Fireball")
@@ -47,21 +48,20 @@ func (character *Character) spellBook(name string) {
 }
 
 func (character *Character) displayInfo() {
-	fmt.Printf(
-		`
-Name: %v
+	fmt.Fprintf(
+		color.Output,
+		`Name: %v
 Class: %v
-Health: %v/%v
+Health: %v
 Lvl: %v
 Money: %v
 Equipment: %v
 `,
-		character.name,
-		character.class,
-		character.health,
-		character.maxHealth,
-		character.lvl,
-		character.money,
+		boldString(character.name),
+		color.GreenString(character.class),
+		color.RedString(fmt.Sprintf("%v/%v", character.health, character.maxHealth)),
+		color.MagentaString(str(character.lvl)),
+		color.YellowString(str(character.money)),
 		character.equipment.Show(),
 	)
 }

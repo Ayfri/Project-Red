@@ -12,7 +12,7 @@ type Item struct {
 	count int
 	name  string
 	price int
-	forgingRequires map[string]int
+	forgingRequires ForgingRequires
 	forgingPrice int
 	equipmentType EquipmentType
 	onUse func(item Item)

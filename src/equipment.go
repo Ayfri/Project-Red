@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/fatih/color"
+)
 
 type Character struct {
 	name      string
@@ -23,9 +26,9 @@ type Equipment struct {
 type EquipmentType int
 
 const (
-	Head EquipmentType = iota
-	Tunic
-	Boots
+	Head EquipmentType = 1 << 6
+	Tunic = 1 << 7
+	Boots = 1 << 8
 )
 
 func (equipment *Equipment) Show() string {
@@ -47,8 +50,8 @@ func (equipment *Equipment) Show() string {
 
 	return fmt.Sprintf(
 		`HEAD: %v, TUNIC: %v, BOOTS: %v`,
-		head,
-		tunic,
-		boots,
+		color.BlueString(head),
+		color.BlueString(tunic),
+		color.BlueString(boots),
 	)
 }
