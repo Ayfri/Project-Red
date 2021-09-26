@@ -1,0 +1,8 @@
+# JetBrains
+.idea
+
+# VSCode
+.vscode
+
+# Go Build
+*.exe
