@@ -66,4 +66,5 @@ func Init() {
 			},
 		},
 	}
+	trainingGoblin = InitGoblin("Training Goblin", 40, 5)
 }

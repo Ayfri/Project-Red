@@ -5,6 +5,10 @@ import (
 	"github.com/fatih/color"
 )
 
+func (character *Character) attack(monster *Monster) {
+	monster.Health -= 5
+}
+
 func (character *Character) dead() {
 	if character.getHealth() >= 0 {
 		fmt.Printf("You're dead.")
