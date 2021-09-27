@@ -117,7 +117,8 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 						fmt.Println(forgeErr)
 					}
 				}
-
+				keys = inventory.keys()
+				sort.Strings(keys)
 				break
 			}
 			i++
@@ -125,12 +126,8 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 	}
 }
 
-func (inventory *Inventory) debug() string {
-	var result string
-
-	for name, item := range *inventory {
-		result += fmt.Sprintf("{%v, Count=%d, Name=%s, Price=%d}", name, item.Count, item.Name, item.Price)
+func (inventory *Inventory) debug() {
+	for _, item := range *inventory {
+		colorFprintf("{Count=%s, Name=%s, Price=%s}\n", color.CyanString(str(item.Count)), color.BlueString(item.Name), color.YellowString(str(item.Price)))
 	}
-
-	return result
 }
