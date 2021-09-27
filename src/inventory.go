@@ -91,7 +91,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 						)
 						break
 					}
-					inventory.removeItem(name, i)
+					inventory.removeItem(name, 1)
 
 					receivingItem := item
 					receivingItem.Count = 1
@@ -102,7 +102,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 					if item.OnUse != nil {
 						item.OnUse(item)
 					}
-					inventory.removeItem(name, i)
+					inventory.removeItem(name, 1)
 					if item.EquipmentType == Head || item.EquipmentType == Tunic || item.EquipmentType == Boots {
 						itemTaken("%v equipped.\n", item.Name)
 					} else {
@@ -111,7 +111,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 				case Blacksmith:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
-						inventory.removeItem(name, i)
+						inventory.removeItem(name, 1)
 						itemTaken("One %v crafted.\n", item.Name)
 					} else {
 						fmt.Println(forgeErr)
