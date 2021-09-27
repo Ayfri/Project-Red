@@ -6,7 +6,7 @@ import (
 )
 
 func (character *Character) dead() {
-	if character.Health >= 0 {
+	if character.getHealth() >= 0 {
 		fmt.Printf("You're dead.")
 		character.Health = character.MaxHealth / 2
 		fmt.Printf("Resurrected with %d", character.Health)
@@ -35,7 +35,15 @@ func (character *Character) equip(item Item) {
 }
 
 func (character *Character) showHealth() {
-	fmt.Printf("Health : %v/%v\n", character.Health, character.MaxHealth)
+	fmt.Printf("Health : %v/%v\n", character.getHealth(), character.getMaxHealth())
+}
+
+func (character *Character) getHealth() int {
+	return character.Health + character.Equipment.getHealthBoost()
+}
+
+func (character *Character) getMaxHealth() int {
+	return character.MaxHealth + character.Equipment.getHealthBoost()
 }
 
 func (character *Character) spellBook(name string) {
@@ -59,7 +67,7 @@ Equipment: %v
 `,
 		boldString(character.Name),
 		color.GreenString(character.Class),
-		color.RedString(fmt.Sprintf("%v/%v", character.Health, character.MaxHealth)),
+		color.RedString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
 		color.MagentaString(str(character.Lvl)),
 		color.YellowString(str(character.Money)),
 		character.Equipment.Show(),

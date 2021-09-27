@@ -6,11 +6,11 @@ import (
 )
 
 type Character struct {
-	Name  string
+	Name      string
 	Class     string
 	Lvl       int
 	MaxHealth int
-	Health int
+	Health    int
 	Skill     []string
 	Money     int
 	Equipment Equipment
@@ -26,10 +26,25 @@ type Equipment struct {
 type EquipmentType int
 
 const (
-	Head EquipmentType = 1 << 6
-	Tunic = 1 << 7
-	Boots = 1 << 8
+	Head  EquipmentType = 1 << 6
+	Tunic               = 1 << 7
+	Boots               = 1 << 8
 )
+
+func (equipment *Equipment) getHealthBoost() int {
+	var result int
+	if equipment.Head != nil {
+		result += equipment.Head.EquipHealthBoost
+	}
+	if equipment.Tunic != nil {
+		result += equipment.Tunic.EquipHealthBoost
+	}
+	if equipment.Boots != nil {
+		result += equipment.Boots.EquipHealthBoost
+	}
+
+	return result
+}
 
 func (equipment *Equipment) Show() string {
 	head := "None"

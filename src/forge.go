@@ -10,31 +10,34 @@ type ForgingRequires map[string]int
 
 var blacksmith = Inventory{
 	"Adventurer's Hats": Item{
-		Count:           1,
-		Name:            "Adventurer's Hat",
-		ForgingRequires: ForgingRequires{crowFeather: 1, boarFur: 1},
-		ForgingPrice:    5,
-		EquipmentType:   Head,
+		Count:            1,
+		Name:             "Adventurer's Hat",
+		ForgingRequires:  ForgingRequires{crowFeather: 1, boarFur: 1},
+		ForgingPrice:     5,
+		EquipmentType:    Head,
+		EquipHealthBoost: 10,
 		OnUse: func(item Item) {
 			character.equip(item)
 		},
 	},
 	"Adventurer's Tunics": Item{
-		Count:           1,
-		Name:            "Adventurer's Tunic",
-		ForgingRequires: ForgingRequires{wolfFur: 2, boarFur: 1},
-		ForgingPrice:    5,
-		EquipmentType:   Tunic,
+		Count:            1,
+		Name:             "Adventurer's Tunic",
+		ForgingRequires:  ForgingRequires{wolfFur: 2, boarFur: 1},
+		ForgingPrice:     5,
+		EquipmentType:    Tunic,
+		EquipHealthBoost: 25,
 		OnUse: func(item Item) {
 			character.equip(item)
 		},
 	},
 	"Adventurer's Boots": Item{
-		Count:           1,
-		Name:            "Adventurer's Boots",
-		ForgingRequires: ForgingRequires{wolfFur: 1, boarFur: 1},
-		ForgingPrice:    5,
-		EquipmentType:   Boots,
+		Count:            1,
+		Name:             "Adventurer's Boots",
+		ForgingRequires:  ForgingRequires{wolfFur: 1, boarFur: 1},
+		ForgingPrice:     5,
+		EquipmentType:    Boots,
+		EquipHealthBoost: 15,
 		OnUse: func(item Item) {
 			character.equip(item)
 		},
