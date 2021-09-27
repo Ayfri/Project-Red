@@ -97,22 +97,22 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 					receivingItem.Count = 1
 					character.Money -= item.Price
 					character.Inventory.addItem(receivingItem)
-					itemTaken("One %v bought.\n", item.Name)
+					printItemTaken("One %v bought.\n", item.Name)
 				case PlayerInventory:
 					if item.OnUse != nil {
 						item.OnUse(item)
 					}
 					inventory.removeItem(name, 1)
 					if item.EquipmentType == Head || item.EquipmentType == Tunic || item.EquipmentType == Boots {
-						itemTaken("%v equipped.\n", item.Name)
+						printItemTaken("%v equipped.\n", item.Name)
 					} else {
-						itemTaken("One %v used.\n", item.Name)
+						printItemTaken("One %v used.\n", item.Name)
 					}
 				case Blacksmith:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
 						inventory.removeItem(name, 1)
-						itemTaken("One %v crafted.\n", item.Name)
+						printItemTaken("One %v crafted.\n", item.Name)
 					} else {
 						fmt.Println(forgeErr)
 					}

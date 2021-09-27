@@ -6,7 +6,9 @@ import (
 )
 
 func (character *Character) attack(monster *Monster) {
-	monster.Health -= 5
+	damages := 5
+	monster.Health -= damages
+	printAttack(*character, *monster, damages)
 }
 
 func (character *Character) dead() {
@@ -15,6 +17,25 @@ func (character *Character) dead() {
 		character.Health = character.MaxHealth / 2
 		fmt.Printf("Resurrected with %d", character.Health)
 	}
+}
+
+func (character *Character) displayInfo() {
+	fmt.Fprintf(
+		color.Output,
+		`Name: %v
+Class: %v
+Health: %v
+Lvl: %v
+Money: %v
+Equipment: %v
+`,
+		boldString(character.Name),
+		color.GreenString(character.Class),
+		color.RedString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
+		color.MagentaString(str(character.Lvl)),
+		color.YellowString(str(character.Money)),
+		character.Equipment.Show(),
+	)
 }
 
 func (character *Character) equip(item Item) {
@@ -38,16 +59,16 @@ func (character *Character) equip(item Item) {
 	}
 }
 
-func (character *Character) showHealth() {
-	fmt.Printf("Health : %v/%v\n", character.getHealth(), character.getMaxHealth())
-}
-
 func (character *Character) getHealth() int {
 	return character.Health + character.Equipment.getHealthBoost()
 }
 
 func (character *Character) getMaxHealth() int {
 	return character.MaxHealth + character.Equipment.getHealthBoost()
+}
+
+func (character *Character) showHealth() string {
+	return fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())
 }
 
 func (character *Character) spellBook(name string) {
@@ -57,23 +78,4 @@ func (character *Character) spellBook(name string) {
 	}
 	character.Skill = append(character.Skill, "Fireball")
 	character.Inventory.removeItem(name, 1)
-}
-
-func (character *Character) displayInfo() {
-	fmt.Fprintf(
-		color.Output,
-		`Name: %v
-Class: %v
-Health: %v
-Lvl: %v
-Money: %v
-Equipment: %v
-`,
-		boldString(character.Name),
-		color.GreenString(character.Class),
-		color.RedString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
-		color.MagentaString(str(character.Lvl)),
-		color.YellowString(str(character.Money)),
-		character.Equipment.Show(),
-	)
 }

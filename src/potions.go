@@ -12,7 +12,7 @@ func (character *Character) takePoisonPotion() {
 				character.Health -= 10
 				time.Sleep(time.Second)
 				fmt.Printf("You took 10 damages.\n")
-				character.showHealth()
+				colorFprintf(character.showHealth())
 			}
 			character.Inventory.removeItem(poisonousPotion, 1)
 		}
@@ -30,5 +30,5 @@ func (character *Character) takeHealthPotion() {
 		}
 	}
 
-	character.showHealth()
+	colorFprintf(character.showHealth())
 }
