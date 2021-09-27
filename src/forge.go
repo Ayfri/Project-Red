@@ -10,60 +10,60 @@ type ForgingRequires map[string]int
 
 var blacksmith = Inventory{
 	"Adventurer's Hats": Item{
-		count:           1,
-		name:            "Adventurer's Hat",
-		forgingRequires: ForgingRequires{crowFeather: 1, boarFur: 1},
-		forgingPrice:    5,
-		equipmentType:   Head,
-		onUse: func(item Item) {
+		Count:           1,
+		Name:            "Adventurer's Hat",
+		ForgingRequires: ForgingRequires{crowFeather: 1, boarFur: 1},
+		ForgingPrice:    5,
+		EquipmentType:   Head,
+		OnUse: func(item Item) {
 			character.equip(item)
 		},
 	},
 	"Adventurer's Tunics": Item{
-		count:           1,
-		name:            "Adventurer's Tunic",
-		forgingRequires: ForgingRequires{wolfFur: 2, boarFur: 1},
-		forgingPrice:    5,
-		equipmentType:   Tunic,
-		onUse: func(item Item) {
+		Count:           1,
+		Name:            "Adventurer's Tunic",
+		ForgingRequires: ForgingRequires{wolfFur: 2, boarFur: 1},
+		ForgingPrice:    5,
+		EquipmentType:   Tunic,
+		OnUse: func(item Item) {
 			character.equip(item)
 		},
 	},
 	"Adventurer's Boots": Item{
-		count:           1,
-		name:            "Adventurer's Boots",
-		forgingRequires: ForgingRequires{wolfFur: 1, boarFur: 1},
-		forgingPrice:    5,
-		equipmentType:   Boots,
-		onUse: func(item Item) {
+		Count:           1,
+		Name:            "Adventurer's Boots",
+		ForgingRequires: ForgingRequires{wolfFur: 1, boarFur: 1},
+		ForgingPrice:    5,
+		EquipmentType:   Boots,
+		OnUse: func(item Item) {
 			character.equip(item)
 		},
 	},
 }
 
 func (character *Character) canForge(item Item) (bool, string) {
-	if character.money-item.forgingPrice < 0 {
-		return false, fmt.Sprintf("You don't have enough money to forge %v.", color.BlueString(item.name))
+	if character.Money-item.ForgingPrice < 0 {
+		return false, fmt.Sprintf("You don't have enough Money to forge %v.", color.BlueString(item.Name))
 	}
 
-	missingItems := DifferentKeys(item.forgingRequires, character.inventory)
+	missingItems := DifferentKeys(item.ForgingRequires, character.Inventory)
 
 	if len(missingItems) > 0 {
 		return false, fmt.Sprintf(
 			"You need %v to craft %v.",
 			color.BlueString(strings.Join(missingItems, " & ")),
-			color.BlueString(item.name),
+			color.BlueString(item.Name),
 		)
 	}
 
-	if item.forgingRequires != nil {
-		for _, inventoryItem := range character.inventory {
-			for name, count := range item.forgingRequires {
-				if strings.Contains(inventoryItem.name, name) && inventoryItem.count-count < 0 {
+	if item.ForgingRequires != nil {
+		for _, inventoryItem := range character.Inventory {
+			for name, count := range item.ForgingRequires {
+				if strings.Contains(inventoryItem.Name, name) && inventoryItem.Count-count < 0 {
 					return false, fmt.Sprintf(
 						"You need %v more %v to craft this item.\n",
-						color.CyanString(str(-(inventoryItem.count - count))),
-						color.BlueString(inventoryItem.name),
+						color.CyanString(str(-(inventoryItem.Count - count))),
+						color.BlueString(inventoryItem.Name),
 					)
 				}
 			}
@@ -79,19 +79,19 @@ func (character *Character) forgeItem(item Item) {
 		return
 	}
 
-	if item.forgingRequires != nil {
-		for _, inventoryItem := range character.inventory {
-			for name, count := range item.forgingRequires {
-				if strings.Contains(inventoryItem.name, name) {
-					inventoryItem.count -= count
+	if item.ForgingRequires != nil {
+		for _, inventoryItem := range character.Inventory {
+			for name, count := range item.ForgingRequires {
+				if strings.Contains(inventoryItem.Name, name) {
+					inventoryItem.Count -= count
 				}
 			}
 		}
 	}
 
 	resultingItem := item
-	resultingItem.count = 1
-	character.inventory.addItem(resultingItem)
+	resultingItem.Count = 1
+	character.Inventory.addItem(resultingItem)
 }
 
 // TODO : Delete this func

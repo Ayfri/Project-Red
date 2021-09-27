@@ -24,26 +24,26 @@ func (inventory *Inventory) show(selectorType SelectorType) {
 
 	for i, name := range keys {
 		item := (*inventory)[name]
-		count := str(item.count)
+		count := str(item.Count)
 		index := color.CyanString(str(i + 1))
 
 		switch selectorType {
 		case Merchant:
-			colorFprintf("%v. %v: %v %v\n", index, name, color.GreenString(count), color.YellowString("(Price: %v)", str(item.price)))
+			colorFprintf("%v. %v: %v %v\n", index, name, color.GreenString(count), color.YellowString("(Price: %v)", str(item.Price)))
 		case PlayerInventory:
 			colorFprintf("%v. %v: %v\n", index, name, color.GreenString(count))
 		case Blacksmith:
-			colorFprintf("%v. %v (Requires: %v)\n", index, name, item.forgingRequires.show())
+			colorFprintf("%v. %v (Requires: %v)\n", index, name, item.ForgingRequires.show())
 		}
 	}
 }
 
 func (inventory *Inventory) addItem(item Item) {
-	if val, ok := (*inventory)[item.name]; ok {
-		val.count += item.count
-		(*inventory)[item.name] = val
+	if val, ok := (*inventory)[item.Name]; ok {
+		val.Count += item.Count
+		(*inventory)[item.Name] = val
 	} else {
-		(*inventory)[item.name] = item
+		(*inventory)[item.Name] = item
 	}
 }
 
@@ -51,9 +51,9 @@ func (inventory *Inventory) removeItem(name string, count int) {
 	if item, ok := (*inventory)[name]; !ok {
 		return
 	} else {
-		item.count -= count
+		item.Count -= count
 		(*inventory)[name] = item
-		if item.count <= 0 {
+		if item.Count <= 0 {
 			delete(*inventory, name)
 		}
 	}
@@ -83,36 +83,36 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 			if number == i {
 				switch selectorType {
 				case Merchant:
-					if character.money < item.price {
+					if character.Money < item.Price {
 						colorFprintf(
-							"You need %v more money to buy %v.\n",
-							color.YellowString(str(-(character.money - item.price))),
-							color.BlueString(item.name),
+							"You need %v more Money to buy %v.\n",
+							color.YellowString(str(-(character.Money - item.Price))),
+							color.BlueString(item.Name),
 						)
 						continue
 					}
 					inventory.removeItem(name, i)
 
 					receivingItem := item
-					receivingItem.count = 1
-					character.money -= item.price
-					character.inventory.addItem(receivingItem)
-					itemTaken("One %v bought.\n", item.name)
+					receivingItem.Count = 1
+					character.Money -= item.Price
+					character.Inventory.addItem(receivingItem)
+					itemTaken("One %v bought.\n", item.Name)
 				case PlayerInventory:
-					if item.onUse != nil {
-						item.onUse(item)
+					if item.OnUse != nil {
+						item.OnUse(item)
 					}
 					inventory.removeItem(name, i)
-					if item.equipmentType == Head || item.equipmentType == Tunic || item.equipmentType == Boots {
-						itemTaken("%v equipped.\n", item.name)
+					if item.EquipmentType == Head || item.EquipmentType == Tunic || item.EquipmentType == Boots {
+						itemTaken("%v equipped.\n", item.Name)
 					} else {
-						itemTaken("One %v used.\n", item.name)
+						itemTaken("One %v used.\n", item.Name)
 					}
 				case Blacksmith:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
 						inventory.removeItem(name, i)
-						itemTaken("One %v crafted.\n", item.name)
+						itemTaken("One %v crafted.\n", item.Name)
 					} else {
 						fmt.Println(forgeErr)
 					}
@@ -129,7 +129,7 @@ func (inventory *Inventory) debug() string {
 	var result string
 
 	for name, item := range *inventory {
-		result += fmt.Sprintf("{%v, count=%d, name=%s, price=%d}", name, item.count, item.name, item.price)
+		result += fmt.Sprintf("{%v, Count=%d, Name=%s, Price=%d}", name, item.Count, item.Name, item.Price)
 	}
 
 	return result

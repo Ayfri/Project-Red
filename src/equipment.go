@@ -6,21 +6,21 @@ import (
 )
 
 type Character struct {
-	name      string
-	class     string
-	lvl       int
-	maxHealth int
-	health    int
-	skill     []string
-	money     int
-	equipment Equipment
-	inventory Inventory
+	Name  string
+	Class     string
+	Lvl       int
+	MaxHealth int
+	Health int
+	Skill     []string
+	Money     int
+	Equipment Equipment
+	Inventory Inventory
 }
 
 type Equipment struct {
-	head  *Item
-	tunic *Item
-	boots *Item
+	Head  *Item
+	Tunic *Item
+	Boots *Item
 }
 
 type EquipmentType int
@@ -36,16 +36,16 @@ func (equipment *Equipment) Show() string {
 	tunic := "None"
 	boots := "None"
 
-	if equipment.head != nil {
-		head = equipment.head.name
+	if equipment.Head != nil {
+		head = equipment.Head.Name
 	}
 
-	if equipment.tunic != nil {
-		tunic = equipment.tunic.name
+	if equipment.Tunic != nil {
+		tunic = equipment.Tunic.Name
 	}
 
-	if equipment.boots != nil {
-		boots = equipment.boots.name
+	if equipment.Boots != nil {
+		boots = equipment.Boots.Name
 	}
 
 	return fmt.Sprintf(

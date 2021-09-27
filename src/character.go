@@ -6,45 +6,45 @@ import (
 )
 
 func (character *Character) dead() {
-	if character.health >= 0 {
+	if character.Health >= 0 {
 		fmt.Printf("You're dead.")
-		character.health = character.maxHealth / 2
-		fmt.Printf("Resurrected with %d", character.health)
+		character.Health = character.MaxHealth / 2
+		fmt.Printf("Resurrected with %d", character.Health)
 	}
 }
 
 func (character *Character) equip(item Item) {
-	switch item.equipmentType {
+	switch item.EquipmentType {
 	case Head:
-		if character.equipment.head != nil {
-			character.inventory.addItem(*character.equipment.head)
+		if character.Equipment.Head != nil {
+			character.Inventory.addItem(*character.Equipment.Head)
 		}
-		character.equipment.head = &item
+		character.Equipment.Head = &item
 	case Tunic:
-		if character.equipment.tunic != nil {
-			character.inventory.addItem(*character.equipment.tunic)
+		if character.Equipment.Tunic != nil {
+			character.Inventory.addItem(*character.Equipment.Tunic)
 		}
-		character.equipment.tunic = &item
+		character.Equipment.Tunic = &item
 
 	case Boots:
-		if character.equipment.boots != nil {
-			character.inventory.addItem(*character.equipment.boots)
+		if character.Equipment.Boots != nil {
+			character.Inventory.addItem(*character.Equipment.Boots)
 		}
-		character.equipment.boots = &item
+		character.Equipment.Boots = &item
 	}
 }
 
 func (character *Character) showHealth() {
-	fmt.Printf("Health : %v/%v\n", character.health, character.maxHealth)
+	fmt.Printf("Health : %v/%v\n", character.Health, character.MaxHealth)
 }
 
 func (character *Character) spellBook(name string) {
-	if Contains(make([]interface{}, len(character.skill)), name) {
+	if Contains(make([]interface{}, len(character.Skill)), name) {
 		colorFprintf("You already have the spell %v.", color.CyanString(name))
 		return
 	}
-	character.skill = append(character.skill, "Fireball")
-	character.inventory.removeItem(name, 1)
+	character.Skill = append(character.Skill, "Fireball")
+	character.Inventory.removeItem(name, 1)
 }
 
 func (character *Character) displayInfo() {
@@ -57,11 +57,11 @@ Lvl: %v
 Money: %v
 Equipment: %v
 `,
-		boldString(character.name),
-		color.GreenString(character.class),
-		color.RedString(fmt.Sprintf("%v/%v", character.health, character.maxHealth)),
-		color.MagentaString(str(character.lvl)),
-		color.YellowString(str(character.money)),
-		character.equipment.Show(),
+		boldString(character.Name),
+		color.GreenString(character.Class),
+		color.RedString(fmt.Sprintf("%v/%v", character.Health, character.MaxHealth)),
+		color.MagentaString(str(character.Lvl)),
+		color.YellowString(str(character.Money)),
+		character.Equipment.Show(),
 	)
 }

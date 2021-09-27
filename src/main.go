@@ -22,7 +22,7 @@ func main() {
 			showMainMenu()
 		case '2':
 			fmt.Println("Inventory:")
-			character.inventory.makeSelector(PlayerInventory, showMainMenu)
+			character.Inventory.makeSelector(PlayerInventory, showMainMenu)
 		case '3':
 			fmt.Println("Merchant:")
 			merchant.makeSelector(Merchant, showMainMenu)
@@ -38,7 +38,7 @@ func main() {
 func showMainMenu() {
 	boldFunc("Select something :")
 	color.Cyan("1: Show character information.")
-	color.Green("2: Show inventory.")
+	color.Green("2: Show Inventory.")
 	color.Magenta("3: Speak to Merchant.")
 	color.Yellow("4: Speak to Blacksmith.")
 	color.Red("5: Quit")
@@ -46,21 +46,21 @@ func showMainMenu() {
 
 func Init() {
 	character = Character{
-		name:      "Ayfri",
-		class:     "Elfe",
-		lvl:       1,
-		maxHealth: 100,
-		health:    40,
-		money:     1,
-		skill: []string{
+		Name:      "Ayfri",
+		Class:     "Elfe",
+		Lvl:       1,
+		MaxHealth: 100,
+		Health:    40,
+		Money:     1,
+		Skill: []string{
 			"Punch",
 		},
-		inventory: Inventory{
+		Inventory: Inventory{
 			"Health Potions": Item{
-				count: 3,
-				name:  "Health Potion",
-				price: 0,
-				onUse: func(item Item) {
+				Count: 3,
+				Name:  "Health Potion",
+				Price: 0,
+				OnUse: func(item Item) {
 					character.takeHealthPotion()
 				},
 			},
