@@ -85,11 +85,11 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 				case Merchant:
 					if character.Money < item.Price {
 						colorFprintf(
-							"You need %v more Money to buy %v.\n",
+							"You need %v more money to buy %v.\n",
 							color.YellowString(str(-(character.Money - item.Price))),
 							color.BlueString(item.Name),
 						)
-						continue
+						break
 					}
 					inventory.removeItem(name, i)
 

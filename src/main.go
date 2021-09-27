@@ -51,7 +51,7 @@ func Init() {
 		Lvl:       1,
 		MaxHealth: 100,
 		Health:    40,
-		Money:     1,
+		Money:     100,
 		Skill: []string{
 			"Punch",
 		},
