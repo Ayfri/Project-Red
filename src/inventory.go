@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/fatih/color"
 	"sort"
 )
 
@@ -22,13 +21,13 @@ func (inventory *Inventory) show(selectorType SelectorType) {
 	for i, name := range keys {
 		item := (*inventory)[name]
 		count := str(item.Count)
-		index := color.CyanString(str(i + 1))
+		index := cyanString(str(i + 1))
 
 		switch selectorType {
 		case Merchant:
-			colorFprintf("%v. %v: %v %v\n", index, name, color.GreenString(count), color.YellowString("(Price: %v)", str(item.Price)))
+			colorFprintf("%v. %v: %v %v\n", index, name, greenString(count), yellowString("(Price: %v)", str(item.Price)))
 		case PlayerInventory:
-			colorFprintf("%v. %v: %v\n", index, name, color.GreenString(count))
+			colorFprintf("%v. %v: %v\n", index, name, greenString(count))
 		case Blacksmith:
 			colorFprintf("%v. %v (Requires: %v)\n", index, name, item.ForgingRequires.show())
 		}
@@ -58,6 +57,6 @@ func (inventory *Inventory) removeItem(name string, count int) {
 
 func (inventory *Inventory) debug() {
 	for _, item := range *inventory {
-		colorFprintf("{Count=%s, Name=%s, Price=%s}\n", color.CyanString(str(item.Count)), color.BlueString(item.Name), color.YellowString(str(item.Price)))
+		colorFprintf("{Count=%s, Name=%s, Price=%s}\n", cyanString(str(item.Count)), blueString(item.Name), yellowString(str(item.Price)))
 	}
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 )
 
 func (character *Character) attack(monster *Monster) {
@@ -15,13 +14,12 @@ func (character *Character) dead() {
 	if character.getHealth() >= 0 {
 		fmt.Println("You're dead.")
 		character.Health = character.MaxHealth / 2
-		colorFprintf("Resurrected with %s health.\n", color.YellowString(character.showHealth()))
+		colorFprintf("Resurrected with %s health.\n", yellowString(character.showHealth()))
 	}
 }
 
 func (character *Character) displayInfo() {
-	fmt.Fprintf(
-		color.Output,
+	colorFprintf(
 		`Name: %v
 Class: %v
 Health: %v
@@ -30,10 +28,10 @@ Money: %v
 Equipment: %v
 `,
 		boldString(character.Name),
-		color.GreenString(character.Class),
-		color.RedString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
-		color.MagentaString(str(character.Lvl)),
-		color.YellowString(str(character.Money)),
+		greenString(character.Class),
+		redString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
+		magentaString(str(character.Lvl)),
+		yellowString(str(character.Money)),
 		character.Equipment.Show(),
 	)
 }
@@ -73,7 +71,7 @@ func (character *Character) showHealth() string {
 
 func (character *Character) spellBook(name string) {
 	if Contains(make([]interface{}, len(character.Skill)), name) {
-		colorFprintf("You already have the spell %v.", color.CyanString(name))
+		colorFprintf("You already have the spell %v.", cyanString(name))
 		return
 	}
 	character.Skill = append(character.Skill, "Fireball")

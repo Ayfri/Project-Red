@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 )
 
 type Character struct {
@@ -47,7 +46,7 @@ func (equipment *Equipment) getHealthBoost() int {
 }
 
 func (character *Character) printHealth() {
-	colorFprintf("Character %v Health\n", color.RedString(character.showHealth()))
+	colorFprintf("Character %v Health\n", redString(character.showHealth()))
 }
 
 func (equipment *Equipment) Show() string {
@@ -69,8 +68,8 @@ func (equipment *Equipment) Show() string {
 
 	return fmt.Sprintf(
 		`HEAD: %v, TUNIC: %v, BOOTS: %v`,
-		color.BlueString(head),
-		color.BlueString(tunic),
-		color.BlueString(boots),
+		blueString(head),
+		blueString(tunic),
+		blueString(boots),
 	)
 }

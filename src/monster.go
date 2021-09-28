@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 )
 
 type Monster struct {
@@ -37,7 +36,7 @@ func (monster *Monster) goblinPattern(turn int, character *Character) {
 }
 
 func (monster *Monster) printHealth() {
-	colorFprintf("Monster %v Health\n", color.RedString(monster.showHealth()))
+	colorFprintf("Monster %v Health\n", redString(monster.showHealth()))
 }
 
 func (monster *Monster) showHealth() string {
@@ -54,7 +53,7 @@ func (monster *Monster) specialAttack(character *Character) {
 func trainingFight(character *Character, monster *Monster) {
 	turn := 0
 
-	color.Yellow("Press q to abandon")
+	yellow("Press q to abandon")
 	for {
 		turn++
 		stop := combatMenu(turn, character, monster)
@@ -68,9 +67,9 @@ func trainingFight(character *Character, monster *Monster) {
 		}
 
 		if monster.Health <= 0 {
-			colorFprintf("Monster %v dead, you won !\n", color.BlueString(monster.Name))
+			colorFprintf("Monster %v dead, you won !\n", blueString(monster.Name))
 			break
 		}
 	}
-	colorFprintf("Combat terminated in %v turn.\n", color.CyanString(str(turn)))
+	colorFprintf("Combat terminated in %v turn.\n", cyanString(str(turn)))
 }

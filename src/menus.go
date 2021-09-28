@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"sort"
 	"strconv"
 	"strings"
@@ -34,7 +33,7 @@ func combatMenu(turn int, character *Character, enemy *Monster) bool {
 }
 
 func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit func()) {
-	colorFprintf(boldString("Select the item you want : %v\n"), color.RedString("(q to quit)"))
+	colorFprintf(boldString("Select the item you want : %v\n", redString("(q to quit)")))
 	keys := inventory.keys()
 	sort.Strings(keys)
 	inventory.show(selectorType)
@@ -60,8 +59,8 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 					if character.Money < item.Price {
 						colorFprintf(
 							"You need %v more money to buy %v.\n",
-							color.YellowString(str(-(character.Money - item.Price))),
-							color.BlueString(item.Name),
+							yellowString(str(-(character.Money - item.Price))),
+							blueString(item.Name),
 						)
 						break
 					}
@@ -102,11 +101,11 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 
 func showMainMenu() {
 	printLine()
-	boldFunc("Select something :")
-	color.Cyan("1: Show character information.")
-	color.Green("2: Show Inventory.")
-	color.Blue("3: Speak to Merchant.")
-	color.Magenta("4: Speak to Blacksmith.")
-	color.Yellow("5: Fight with training goblin.")
-	color.Red("6: Quit")
+	bold("Select something :")
+	cyan("1: Show character information.")
+	green("2: Show Inventory.")
+	blue("3: Speak to Merchant.")
+	magenta("4: Speak to Blacksmith.")
+	yellow("5: Fight with training goblin.")
+	red("6: Quit")
 }
