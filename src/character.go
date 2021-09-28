@@ -13,9 +13,9 @@ func (character *Character) attack(monster *Monster) {
 
 func (character *Character) dead() {
 	if character.getHealth() >= 0 {
-		fmt.Printf("You're dead.")
+		fmt.Println("You're dead.")
 		character.Health = character.MaxHealth / 2
-		fmt.Printf("Resurrected with %d", character.Health)
+		colorFprintf("Resurrected with %s health.\n", color.YellowString(character.showHealth()))
 	}
 }
 

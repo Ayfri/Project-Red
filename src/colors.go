@@ -13,12 +13,15 @@ func printItemTaken(format string, item string) {
 }
 
 func printAttack(attacker interface{}, receiver interface{}, damages int) {
-	colorFprintf("%v attacked %v, %v damages taken.", color.RedString(attacker.(Monster).Name), boldString(receiver.(Monster).Name), str(damages))
 	switch receiver.(type) {
 	case Monster:
-		colorFprintf(receiver.(*Monster).showHealth())
+		monster := receiver.(Monster)
+		colorFprintf("%v attacked %v, %v damages taken.\n", color.RedString(attacker.(Character).Name), boldString(monster.Name), str(damages))
+		monster.printHealth()
 	case Character:
-		colorFprintf(receiver.(*Character).showHealth())
+		character := receiver.(Character)
+		colorFprintf("%v attacked %v, %v damages taken.\n", color.RedString(attacker.(Monster).Name), boldString(character.Name), str(damages))
+		character.printHealth()
 	}
 }
 

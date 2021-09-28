@@ -46,6 +46,10 @@ func (equipment *Equipment) getHealthBoost() int {
 	return result
 }
 
+func (character *Character) printHealth() {
+	colorFprintf("Character %v Health\n", color.RedString(character.showHealth()))
+}
+
 func (equipment *Equipment) Show() string {
 	head := "None"
 	tunic := "None"

@@ -1,11 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"github.com/fatih/color"
 	"sort"
-	"strconv"
-	"strings"
 )
 
 type Inventory map[string]Item
@@ -55,73 +52,6 @@ func (inventory *Inventory) removeItem(name string, count int) {
 		(*inventory)[name] = item
 		if item.Count <= 0 {
 			delete(*inventory, name)
-		}
-	}
-}
-
-func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit func()) {
-	colorFprintf(boldString("Select the item you want : %v\n"), color.RedString("(q to quit)"))
-	keys := inventory.keys()
-	sort.Strings(keys)
-	inventory.show(selectorType)
-
-	for {
-		input, _ := reader.ReadString('\n')
-		number, err := strconv.Atoi(strings.TrimSpace(input))
-		if input[0] == 'q' {
-			whenQuit()
-			break
-		}
-
-		if err != nil || number < 0 || number > len(merchant) {
-			continue
-		}
-
-		i := 1
-		for _, name := range keys {
-			item := (*inventory)[name]
-			if number == i {
-				switch selectorType {
-				case Merchant:
-					if character.Money < item.Price {
-						colorFprintf(
-							"You need %v more money to buy %v.\n",
-							color.YellowString(str(-(character.Money - item.Price))),
-							color.BlueString(item.Name),
-						)
-						break
-					}
-					inventory.removeItem(name, 1)
-
-					receivingItem := item
-					receivingItem.Count = 1
-					character.Money -= item.Price
-					character.Inventory.addItem(receivingItem)
-					printItemTaken("One %v bought.\n", item.Name)
-				case PlayerInventory:
-					if item.OnUse != nil {
-						item.OnUse(item)
-					}
-					inventory.removeItem(name, 1)
-					if item.EquipmentType == Head || item.EquipmentType == Tunic || item.EquipmentType == Boots {
-						printItemTaken("%v equipped.\n", item.Name)
-					} else {
-						printItemTaken("One %v used.\n", item.Name)
-					}
-				case Blacksmith:
-					if canForge, forgeErr := character.canForge(item); canForge {
-						character.forgeItem(item)
-						inventory.removeItem(name, 1)
-						printItemTaken("One %v crafted.\n", item.Name)
-					} else {
-						fmt.Println(forgeErr)
-					}
-				}
-				keys = inventory.keys()
-				sort.Strings(keys)
-				break
-			}
-			i++
 		}
 	}
 }

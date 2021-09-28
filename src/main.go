@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/fatih/color"
 	"os"
 )
 
@@ -13,6 +12,7 @@ var reader = bufio.NewReader(os.Stdin)
 func main() {
 	Init()
 	var input string
+	trainingFight(&character, &trainingGoblin)
 	showMainMenu()
 	for {
 		input, _ = reader.ReadString('\n')
@@ -33,15 +33,6 @@ func main() {
 			os.Exit(1)
 		}
 	}
-}
-
-func showMainMenu() {
-	boldFunc("Select something :")
-	color.Cyan("1: Show character information.")
-	color.Green("2: Show Inventory.")
-	color.Magenta("3: Speak to Merchant.")
-	color.Yellow("4: Speak to Blacksmith.")
-	color.Red("5: Quit")
 }
 
 func Init() {
