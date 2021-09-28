@@ -1,6 +1,12 @@
 package main
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+var lineLength = 60
 
 func Contains(array []interface{}, value interface{}) bool {
 	for _, a := range array {
@@ -36,14 +42,23 @@ func (inventory *Inventory) keys() []string {
 func DifferentKeys(a map[string]int, b Inventory) []string {
 	var aKeys []string
 	var bKeys []string
-	for key, _ := range a {
+	for key := range a {
 		aKeys = append(aKeys, key)
 	}
-	for key, _ := range b {
+	for key := range b {
 		bKeys = append(bKeys, key)
 	}
 
 	return Difference(aKeys, bKeys)
+}
+
+func printLine() {
+	fmt.Println(strings.Repeat("-", lineLength))
+}
+
+func printCenteredTitle(title string) {
+	dashes := strings.Repeat("-", (lineLength-len(title)-2)/2)
+	fmt.Printf("%v %v %v\n", dashes, title, dashes)
 }
 
 func str(number int) string {

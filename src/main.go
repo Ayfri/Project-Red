@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 )
 
@@ -20,13 +19,13 @@ func main() {
 			character.displayInfo()
 			showMainMenu()
 		case '2':
-			fmt.Println("Inventory:")
+			printCenteredTitle("Inventory")
 			character.Inventory.makeSelector(PlayerInventory, showMainMenu)
 		case '3':
-			fmt.Println("Merchant:")
+			printCenteredTitle("Merchant")
 			merchant.makeSelector(Merchant, showMainMenu)
 		case '4':
-			fmt.Println("Blacksmith:")
+			printCenteredTitle("Blacksmith")
 			blacksmith.makeSelector(Blacksmith, showMainMenu)
 		case '5':
 			trainingFight(&character, &trainingGoblin)

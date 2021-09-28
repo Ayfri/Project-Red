@@ -98,6 +98,7 @@ func (character *Character) forgeItem(item Item) {
 }
 
 // TODO : Delete this func
+// From stream twitch.tv/ayfri1015, from ArFTNL.
 func (forgingRequires *ForgingRequires) show() string {
 	var result []string
 	for name, count := range *forgingRequires {

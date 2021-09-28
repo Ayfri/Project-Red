@@ -8,7 +8,8 @@ import (
 	"strings"
 )
 
-func combatMenu(character *Character, enemy *Monster) bool {
+func combatMenu(turn int, character *Character, enemy *Monster) bool {
+	printCenteredTitle(fmt.Sprintf("Turn %d", turn))
 	fmt.Println("1. Attack")
 	fmt.Println("2. Inventory")
 
@@ -100,6 +101,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 }
 
 func showMainMenu() {
+	printLine()
 	boldFunc("Select something :")
 	color.Cyan("1: Show character information.")
 	color.Green("2: Show Inventory.")

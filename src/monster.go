@@ -57,7 +57,7 @@ func trainingFight(character *Character, monster *Monster) {
 	color.Yellow("Press q to abandon")
 	for {
 		turn++
-		stop := combatMenu(character, monster)
+		stop := combatMenu(turn, character, monster)
 		if stop {
 			break
 		}
