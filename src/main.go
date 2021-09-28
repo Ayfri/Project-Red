@@ -12,7 +12,6 @@ var reader = bufio.NewReader(os.Stdin)
 func main() {
 	Init()
 	var input string
-	trainingFight(&character, &trainingGoblin)
 	showMainMenu()
 	for {
 		input, _ = reader.ReadString('\n')
@@ -30,6 +29,9 @@ func main() {
 			fmt.Println("Blacksmith:")
 			blacksmith.makeSelector(Blacksmith, showMainMenu)
 		case '5':
+			trainingFight(&character, &trainingGoblin)
+			showMainMenu()
+		case '6':
 			os.Exit(1)
 		}
 	}

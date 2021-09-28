@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func combatMenu(character *Character, enemy *Monster) (bool) {
+func combatMenu(character *Character, enemy *Monster) bool {
 	fmt.Println("1. Attack")
 	fmt.Println("2. Inventory")
 
@@ -103,7 +103,8 @@ func showMainMenu() {
 	boldFunc("Select something :")
 	color.Cyan("1: Show character information.")
 	color.Green("2: Show Inventory.")
-	color.Magenta("3: Speak to Merchant.")
-	color.Yellow("4: Speak to Blacksmith.")
-	color.Red("5: Quit")
+	color.Blue("3: Speak to Merchant.")
+	color.Magenta("4: Speak to Blacksmith.")
+	color.Yellow("5: Fight with training goblin.")
+	color.Red("6: Quit")
 }

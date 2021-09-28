@@ -54,9 +54,9 @@ func (monster *Monster) specialAttack(character *Character) {
 func trainingFight(character *Character, monster *Monster) {
 	turn := 0
 
+	color.Yellow("Press q to abandon")
 	for {
 		turn++
-		color.Yellow("Press q to abandon")
 		stop := combatMenu(character, monster)
 		if stop {
 			break
