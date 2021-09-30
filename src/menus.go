@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"sort"
-	"strconv"
-	"strings"
 )
 
 func combatMenu(turn int, character *Character, enemy *Monster) bool {
@@ -12,14 +10,13 @@ func combatMenu(turn int, character *Character, enemy *Monster) bool {
 	fmt.Println("1. Attack")
 	fmt.Println("2. Inventory")
 
-	input, _ := reader.ReadString('\n')
-	number, err := strconv.Atoi(strings.TrimSpace(input))
+	number, quit := InputNumber()
 
-	if err != nil || number < 0 || number > len(merchant) {
+	if number <= 0 || number > len(merchant) {
 		return false
 	}
 
-	if input[0] == 'q' {
+	if quit {
 		return true
 	}
 
@@ -39,14 +36,14 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 	inventory.show(selectorType)
 
 	for {
-		input, _ := reader.ReadString('\n')
-		number, err := strconv.Atoi(strings.TrimSpace(input))
-		if input[0] == 'q' {
+		number, quit := InputNumber()
+
+		if quit {
 			whenQuit()
 			break
 		}
 
-		if err != nil || number < 0 || number > len(merchant) {
+		if number <= 0 || number > len(merchant) {
 			continue
 		}
 

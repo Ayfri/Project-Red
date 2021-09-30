@@ -4,18 +4,6 @@ import (
 	"fmt"
 )
 
-type Character struct {
-	Name      string
-	Class     string
-	Lvl       int
-	MaxHealth int
-	Health    int
-	Skill     []string
-	Money     int
-	Equipment Equipment
-	Inventory Inventory
-}
-
 type Equipment struct {
 	Head  *Item
 	Tunic *Item

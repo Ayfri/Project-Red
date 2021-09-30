@@ -5,58 +5,39 @@ import (
 	"os"
 )
 
-var character Character
+var races = []string{"Altmer", "Argonian", "Bosmer", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orsimer", "Redguard"}
 var reader = bufio.NewReader(os.Stdin)
+var character Character
 
 func main() {
-	Init()
-	var input string
+	InitInteractiveCharacter()
+	trainingGoblin = InitGoblin("Training Goblin", 40, 5)
 	showMainMenu()
 	for {
-		input, _ = reader.ReadString('\n')
-		switch input[0] {
-		case '1':
+		input, quit := InputNumber()
+		if quit {
+			os.Exit(1)
+		}
+
+		switch input {
+		case 1:
 			character.displayInfo()
 			showMainMenu()
-		case '2':
+		case 2:
 			printCenteredTitle("Inventory")
 			character.Inventory.makeSelector(PlayerInventory, showMainMenu)
-		case '3':
+		case 3:
 			printCenteredTitle("Merchant")
 			merchant.makeSelector(Merchant, showMainMenu)
-		case '4':
+		case 4:
 			printCenteredTitle("Blacksmith")
 			blacksmith.makeSelector(Blacksmith, showMainMenu)
-		case '5':
+		case 5:
 			trainingFight(&character, &trainingGoblin)
 			showMainMenu()
-		case '6':
+		case 6:
 			os.Exit(1)
 		}
 	}
 }
 
-func Init() {
-	character = Character{
-		Name:      "Ayfri",
-		Class:     "Elfe",
-		Lvl:       1,
-		MaxHealth: 100,
-		Health:    40,
-		Money:     100,
-		Skill: []string{
-			"Punch",
-		},
-		Inventory: Inventory{
-			"Health Potions": Item{
-				Count: 3,
-				Name:  "Health Potion",
-				Price: 0,
-				OnUse: func(item Item) {
-					character.takeHealthPotion()
-				},
-			},
-		},
-	}
-	trainingGoblin = InitGoblin("Training Goblin", 40, 5)
-}

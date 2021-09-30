@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -64,3 +65,33 @@ func printCenteredTitle(title string) {
 func str(number int) string {
 	return strconv.Itoa(number)
 }
+
+func InputNumber() (number int, quit bool) {
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimPrefix(input, "\n")
+	if number, err := strconv.Atoi(input); err != nil {
+		return number, false
+	}
+	return 0, true
+}
+
+func InputText() string {
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSuffix(input, "\n")
+	return input
+}
+
+func InputTextTrimmed(name string) string {
+	var input string
+	for {
+		input, _ = reader.ReadString('\n')
+		input = strings.TrimSuffix(input, "\n")
+		if containsSpace, _ := regexp.MatchString("\\s", input); containsSpace {
+			red("Your %v mustn't contains spaces.", name)
+			continue
+		}
+		break
+	}
+	return input
+}
+
