@@ -4,7 +4,15 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"syscall"
 )
+
+func InitColors() {
+	handle := syscall.Handle(os.Stdout.Fd())
+	kernel32DLL := syscall.NewLazyDLL("kernel32.dll")
+	setConsoleModeProc := kernel32DLL.NewProc("SetConsoleMode")
+	setConsoleModeProc.Call(uintptr(handle), 0x0001|0x0002|0x0004)
+}
 
 func printItemTaken(format string, item string) {
 	colorFprintf(format, blueString(item))
@@ -141,3 +149,4 @@ func yellow(text string, args ...interface{}) {
 		printColor(Blue, text, args)
 	}
 }
+
