@@ -132,18 +132,19 @@ func InitInteractiveCharacter() {
 
 func RaceChooser() string {
 	var result string
-	sort.Strings(races)
-	for index, race := range races {
+	var raceNames = RaceNames()
+	sort.Strings(raceNames)
+	for index, race := range RaceNames() {
 		colorFprintf("%v. %v\n", cyanString(str(index)), race)
 	}
 
 	for {
 		number, _ := InputNumber()
-		if number < 0 || number > len(races) {
+		if number < 0 || number > len(raceNames) {
 			continue
 		}
 
-		result = races[number]
+		result = raceNames[number]
 		break
 	}
 	return result

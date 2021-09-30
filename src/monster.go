@@ -43,7 +43,6 @@ func (monster *Monster) showHealth() string {
 	return fmt.Sprintf("%v/%v", monster.Health, monster.MaxHealth)
 }
 
-
 func (monster *Monster) specialAttack(character *Character) {
 	damages := monster.AttackDamage * 2
 	character.Health -= damages

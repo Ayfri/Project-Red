@@ -5,22 +5,6 @@ import (
 	"os"
 )
 
-var races = []string{
-	"Altmer",
-	"Argonian",
-	"Bosmer",
-	"Breton",
-	"Dunmer",
-	"Imperial",
-	"Khajiit",
-	"Nord",
-	"Orsimer",
-	"Redguard",
-}
-
-type Race struct {
-
-}
 var reader = bufio.NewReader(os.Stdin)
 var character Character
 
@@ -56,4 +40,3 @@ func main() {
 		}
 	}
 }
-
