@@ -22,7 +22,7 @@ func (character *Character) takePoisonPotion() {
 func (character *Character) throwPoisonPotion(monster *Monster) {
 	for _, item := range character.Inventory {
 		if item.Name == poisonousPotion {
-			colorFprintf("You throw one poison potion to %v.\n", redString(monster.Name))
+			colorPrintf("You throw one poison potion to %v.\n", redString(monster.Name))
 			character.Inventory.removeItem(poisonousPotion, 1)
 			damages := 5
 			for i := 0; i < 3; i++ {
@@ -32,7 +32,7 @@ func (character *Character) throwPoisonPotion(monster *Monster) {
 					}
 					time.Sleep(time.Duration(5) * time.Second)
 					monster.HandleAttack(&Item{AttackType: Poison}, damages)
-					colorFprintf("%v took poison damage, %v damages taken.\n", redString(monster.Name), redString(str(damages)))
+					colorPrintf("%v took poison damage, %v damages taken.\n", redString(monster.Name), redString(str(damages)))
 					monster.showHealth()
 				}()
 			}

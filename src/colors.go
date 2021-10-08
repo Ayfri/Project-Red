@@ -15,23 +15,23 @@ func InitColors() {
 }
 
 func printItemTaken(format string, item string) {
-	colorFprintf(format, blueString(item))
+	colorPrintf(format, blueString(item))
 }
 
 func printAttack(attacker interface{}, receiver interface{}, damages int) {
 	switch receiver.(type) {
 	case Monster:
 		monster := receiver.(Monster)
-		colorFprintf("%v attacked %v, %v damages taken.\n", redString(attacker.(Character).Name), boldString(monster.Name), str(damages))
+		colorPrintf("%v attacked %v, %v damages taken.\n", redString(attacker.(Character).Name), boldString(monster.Name), str(damages))
 		monster.printHealth()
 	case Character:
 		character := receiver.(Character)
-		colorFprintf("%v attacked %v, %v damages taken.\n", boldString(attacker.(Monster).Name), redString(character.Name), str(damages))
+		colorPrintf("%v attacked %v, %v damages taken.\n", boldString(attacker.(Monster).Name), redString(character.Name), str(damages))
 		character.printHealth()
 	}
 }
 
-func colorFprintf(format string, vars ...string) {
+func colorPrintf(format string, vars ...string) {
 	result := make([]interface{}, len(vars))
 	for i, s := range vars {
 		result[i] = s

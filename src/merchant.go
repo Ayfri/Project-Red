@@ -31,7 +31,7 @@ func (npc *NPC) speak() {
 	case Blacksmith:
 		jobName = "Blacksmith"
 	}
-	colorFprintf("Hi stranger, I'm %v, a %v, what do you want ?\n", greenString(npc.Name), yellowString(jobName))
+	colorPrintf("Hi stranger, I'm %v, a %v, what do you want ?\n", greenString(npc.Name), yellowString(jobName))
 	npc.showMenu()
 }
 
@@ -45,14 +45,14 @@ func (npc *NPC) showMenu() {
 	}
 
 	index := 1
-	colorFprintf("%v. %v Items\n", cyanString(str(index)), interactionName)
+	colorPrintf("%v. %v Items\n", cyanString(str(index)), interactionName)
 
 	if npc.CanBuyItems {
 		index++
-		colorFprintf("%v. Sell Items\n", cyanString(str(index)))
+		colorPrintf("%v. Sell Items\n", cyanString(str(index)))
 	}
 	index++
-	colorFprintf("%v. %v\n", cyanString(str(index)), redString("Quit"))
+	colorPrintf("%v. %v\n", cyanString(str(index)), redString("Quit"))
 
 	for {
 		input, quit := InputNumber()

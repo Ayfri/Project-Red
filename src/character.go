@@ -64,12 +64,12 @@ func (character *Character) dead() {
 	if character.getHealth() >= 0 {
 		fmt.Println("You're dead.")
 		character.Health = character.MaxHealth / 2
-		colorFprintf("Resurrected with %s health.\n", yellowString(character.showHealth()))
+		colorPrintf("Resurrected with %s health.\n", yellowString(character.showHealth()))
 	}
 }
 
 func (character *Character) displayInfo() {
-	colorFprintf(
+	colorPrintf(
 		`Name: %v
 Race: %v
 Health: %v
@@ -113,7 +113,7 @@ func (character *Character) gainXP(count int) {
 	newLevel := character.getLevel()
 	if newLevel > currentLevel {
 		character.MaxHealth = int(float64(character.MaxHealth) * 1.2)
-		colorFprintf("Level up !\nMax Health increased.\nYou are now level %v.\n", magentaString(str(newLevel)))
+		colorPrintf("Level up !\nMax Health increased.\nYou are now level %v.\n", magentaString(str(newLevel)))
 	}
 }
 
@@ -123,7 +123,7 @@ func (character *Character) getLevel() int {
 		result++
 		maxXP += character.calculateXPForLevel(result)
 	}
-	return result
+	return result + 1
 }
 
 func (character *Character) getHealth() int {
@@ -185,7 +185,7 @@ func (character *Character) showHealth() string {
 
 func (character *Character) spellBook(name string) {
 	if Contains(make([]interface{}, len(character.Skill)), name) {
-		colorFprintf("You already have the spell %v.", cyanString(name))
+		colorPrintf("You already have the spell %v.", cyanString(name))
 		return
 	}
 	character.Skill = append(character.Skill, "Fireball")
@@ -194,10 +194,10 @@ func (character *Character) spellBook(name string) {
 
 func InitInteractiveCharacter() {
 	character = Character{}
-	colorFprintf("What is your %v ?\n", blueString("name"))
+	colorPrintf("What is your %v ?\n", blueString("name"))
 	input := InputTextTrimmed("name")
 	character.Name = strings.Title(input)
-	colorFprintf("What is your Race ?\n")
+	colorPrintf("What is your Race ?\n")
 	character.Race = RaceChooser()
 	character.Health = character.getMaxHealth() / 2
 	character.Skill = append(character.Skill, "Punch")
@@ -220,7 +220,7 @@ func RaceChooser() Race {
 	var raceNames = RaceNames()
 	sort.Strings(raceNames)
 	for index, race := range RaceNames() {
-		colorFprintf("%v. %v\n", cyanString(str(index)), race)
+		colorPrintf("%v. %v\n", cyanString(str(index)), race)
 	}
 
 	for {

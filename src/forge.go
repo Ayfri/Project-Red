@@ -81,7 +81,7 @@ func (character *Character) canForge(item Item) (bool, string) {
 
 func (character *Character) forgeItem(item Item) {
 	if canForge, err := character.canForge(item); !canForge {
-		colorFprintf(err)
+		colorPrintf(err)
 		return
 	}
 

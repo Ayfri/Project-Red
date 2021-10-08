@@ -49,7 +49,7 @@ func (equipment *Equipment) getHealthBoost() int {
 }
 
 func (character *Character) printHealth() {
-	colorFprintf("Character %v Health\n", redString(character.showHealth()))
+	colorPrintf("Character %v Health\n", redString(character.showHealth()))
 }
 
 func (equipment *Equipment) Show() string {

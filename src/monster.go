@@ -45,7 +45,7 @@ func (monster *Monster) goblinPattern(turn int, character *Character) {
 }
 
 func (monster *Monster) printHealth() {
-	colorFprintf("Monster %v Health\n", redString(monster.showHealth()))
+	colorPrintf("Monster %v Health\n", redString(monster.showHealth()))
 }
 
 func (monster *Monster) showHealth() string {
@@ -74,6 +74,7 @@ func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 func trainingFight(character *Character, monster *Monster) {
 	if !isThereMonster {
 		InitMonster(character.getLevel() * 20 + 10 + rand.Intn(30), character.getLevel() + 2 + rand.Intn(3), RandomRace())
+		colorPrintf("You search for a new monster...\n%v found, he is a %v with %v max health.", redString(monster.Name), greenString(monster.Race.Name), redString(str(monster.MaxHealth)))
 	}
 
 	turn := 0
@@ -96,11 +97,11 @@ func trainingFight(character *Character, monster *Monster) {
 			xp, gold := 5+monster.MaxHealth/10, rand.Intn(20)
 			character.gainXP(xp)
 			character.Money += gold
-			colorFprintf("Monster %v dead, you won %v gold & %v xp!\n", blueString(monster.Name), yellowString(str(gold)), cyanString(str(xp)))
+			colorPrintf("Monster %v dead, you won %v gold & %v xp!\n", blueString(monster.Name), yellowString(str(gold)), cyanString(str(xp)))
 			break
 		}
 	}
 	isInCombat = false
 	isThereMonster = false
-	colorFprintf("Combat terminated in %v turn.\n", cyanString(str(turn)))
+	colorPrintf("Combat terminated in %v turn.\n", cyanString(str(turn)))
 }

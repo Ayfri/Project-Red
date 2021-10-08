@@ -7,8 +7,8 @@ import (
 
 func combatMenu(turn int, character *Character, enemy *Monster) bool {
 	printCenteredTitle(fmt.Sprintf("Turn %d", turn))
-	colorFprintf("%v. Attack\n", cyanString(str(1)))
-	colorFprintf("%v. Inventory\n", cyanString(str(2)))
+	colorPrintf("%v. Attack\n", cyanString(str(1)))
+	colorPrintf("%v. Inventory\n", cyanString(str(2)))
 
 	number, quit := InputNumber()
 
@@ -26,7 +26,7 @@ func combatMenu(turn int, character *Character, enemy *Monster) bool {
 }
 
 func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit func()) {
-	colorFprintf(boldString("Select the item you want : %v\n", redString("(q to quit)")))
+	colorPrintf(boldString("Select the item you want : %v\n", redString("(q to quit)")))
 	keys := inventory.keys()
 	sort.Strings(keys)
 	inventory.show(selectorType)
@@ -50,7 +50,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 				switch selectorType {
 				case MerchantInventory:
 					if character.Money < item.Price {
-						colorFprintf(
+						colorPrintf(
 							"You need %v more money to buy %v.\n",
 							yellowString(str(-(character.Money - item.Price))),
 							blueString(item.Name),
@@ -77,7 +77,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 				case PlayerSellInventory:
 					inventory.removeItem(name, 1)
 					character.Money += item.Price
-					colorFprintf("You sold %v for %v money.", name, yellowString(str(item.Price)))
+					colorPrintf("You sold %v for %v money.", name, yellowString(str(item.Price)))
 				case BlacksmithInventory:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
