@@ -28,10 +28,12 @@ func main() {
 			character.Inventory.makeSelector(PlayerInventory, showMainMenu)
 		case 3:
 			printCenteredTitle("Merchant")
-			merchant.makeSelector(Merchant, showMainMenu)
+			merchant.speak()
+			showMainMenu()
 		case 4:
 			printCenteredTitle("Blacksmith")
-			blacksmith.makeSelector(Blacksmith, showMainMenu)
+			blacksmith.speak()
+			showMainMenu()
 		case 5:
 			trainingFight(&character, &trainingGoblin)
 			showMainMenu()

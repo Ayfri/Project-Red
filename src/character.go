@@ -40,10 +40,10 @@ func (character *Character) attack(monster *Monster) {
 		damages = weapon.AttackDamage
 	case Fire:
 		damages = int(float32(weapon.AttackDamage) * 0.8)
-		character.parallelAttack(monster, 3, 3, weapon.AttackDamage / 10)
+		character.parallelAttack(monster, 3, 3, weapon.AttackDamage/10)
 	case Poison:
 		damages = weapon.AttackDamage / 2
-		character.parallelAttack(monster, 5, 10, weapon.AttackDamage / 2)
+		character.parallelAttack(monster, 5, 10, weapon.AttackDamage/2)
 	case Magic:
 		damages = 0
 		character.parallelAttack(monster, 4, 4, weapon.AttackDamage)
@@ -109,17 +109,16 @@ func (character *Character) getMaxHealth() int {
 
 func (character *Character) HandleAttack(weapon *Item, damages int) {
 	if boost, ok := character.Race.Boosts["MagicResistance"]; weapon.AttackType == Magic && ok {
-		damages = int(float32(boost) / float32(boost / 100))
+		damages = int(float32(boost) / float32(boost/100))
 	}
 	if boost, ok := character.Race.Boosts["PoisonResistance"]; weapon.AttackType == Poison && ok {
-		damages = int(float32(boost) / float32(boost / 100))
+		damages = int(float32(boost) / float32(boost/100))
 	}
 	if boost, ok := character.Race.Boosts["FireResistance"]; weapon.AttackType == Fire && ok {
-		damages = int(float32(boost) / float32(boost / 100))
+		damages = int(float32(boost) / float32(boost/100))
 	}
 	character.Health -= damages
 }
-
 
 func InitCharacter() {
 	character = Character{
@@ -179,6 +178,15 @@ func InitInteractiveCharacter() {
 	character.Skill = append(character.Skill, "Punch")
 	character.MaxHealth = 100
 	character.Health = character.MaxHealth
+
+	character.Equipment.Weapon = &Item{
+		AttackDamage:  5,
+		AttackType:    Melee,
+		Count:         1,
+		EquipmentType: Weapon,
+		Name:          "Iron Sword",
+		Price:         20,
+	}
 }
 
 func RaceChooser() Race {

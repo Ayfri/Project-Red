@@ -9,9 +9,10 @@ type Inventory map[string]Item
 type SelectorType int
 
 const (
-	Merchant SelectorType = iota
+	MerchantInventory SelectorType = iota
 	PlayerInventory
-	Blacksmith
+	PlayerSellInventory
+	BlacksmithInventory
 )
 
 func (inventory *Inventory) show(selectorType SelectorType) {
@@ -24,11 +25,11 @@ func (inventory *Inventory) show(selectorType SelectorType) {
 		index := cyanString(str(i + 1))
 
 		switch selectorType {
-		case Merchant:
+		case MerchantInventory:
 			colorFprintf("%v. %v: %v %v\n", index, name, greenString(count), yellowString("(Price: %v)", str(item.Price)))
 		case PlayerInventory:
 			colorFprintf("%v. %v: %v\n", index, name, greenString(count))
-		case Blacksmith:
+		case BlacksmithInventory:
 			colorFprintf("%v. %v (Requires: %v)\n", index, name, item.ForgingRequires.show())
 		}
 	}

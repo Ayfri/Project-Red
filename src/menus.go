@@ -12,7 +12,7 @@ func combatMenu(turn int, character *Character, enemy *Monster) bool {
 
 	number, quit := InputNumber()
 
-	if number <= 0 || number > len(merchant) {
+	if number <= 0 || number > len(character.Inventory) {
 		return false
 	}
 
@@ -43,7 +43,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 			break
 		}
 
-		if number <= 0 || number > len(merchant) {
+		if number <= 0 || number > len(*inventory) {
 			continue
 		}
 
@@ -52,7 +52,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 			item := (*inventory)[name]
 			if number == i {
 				switch selectorType {
-				case Merchant:
+				case MerchantInventory:
 					if character.Money < item.Price {
 						colorFprintf(
 							"You need %v more money to buy %v.\n",
@@ -78,7 +78,11 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 					} else {
 						printItemTaken("One %v used.\n", item.Name)
 					}
-				case Blacksmith:
+				case PlayerSellInventory:
+					inventory.removeItem(name, 1)
+					character.Money += item.Price
+					colorFprintf("You sold %v for %v money.", name, yellowString(str(item.Price)))
+				case BlacksmithInventory:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
 						inventory.removeItem(name, 1)

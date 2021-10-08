@@ -69,6 +69,9 @@ func str(number int) string {
 func InputNumber() (number int, quit bool) {
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSuffix(input, "\n")
+	if input == "q" {
+		return 0, true
+	}
 	if number, err := strconv.Atoi(input); err == nil {
 		return number, false
 	}
