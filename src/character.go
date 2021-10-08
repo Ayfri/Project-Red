@@ -203,6 +203,7 @@ func InitInteractiveCharacter() {
 	character.Skill = append(character.Skill, "Punch")
 	character.MaxHealth = 100
 	character.Health = character.MaxHealth
+	character.Inventory = Inventory{}
 
 	character.Equipment.Weapon = &Item{
 		AttackDamage:  5,
@@ -210,7 +211,7 @@ func InitInteractiveCharacter() {
 		Count:         1,
 		EquipmentType: Weapon,
 		Name:          "Iron Sword",
-		Price:         20,
+		Price:         10,
 	}
 }
 

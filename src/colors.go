@@ -26,7 +26,7 @@ func printAttack(attacker interface{}, receiver interface{}, damages int) {
 		monster.printHealth()
 	case Character:
 		character := receiver.(Character)
-		colorFprintf("%v attacked %v, %v damages taken.\n", redString(attacker.(Monster).Name), boldString(character.Name), str(damages))
+		colorFprintf("%v attacked %v, %v damages taken.\n", boldString(attacker.(Monster).Name), redString(character.Name), str(damages))
 		character.printHealth()
 	}
 }

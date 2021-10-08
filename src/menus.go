@@ -7,14 +7,10 @@ import (
 
 func combatMenu(turn int, character *Character, enemy *Monster) bool {
 	printCenteredTitle(fmt.Sprintf("Turn %d", turn))
-	fmt.Println("1. Attack")
-	fmt.Println("2. Inventory")
+	colorFprintf("%v. Attack\n", cyanString(str(1)))
+	colorFprintf("%v. Inventory\n", cyanString(str(2)))
 
 	number, quit := InputNumber()
-
-	if number <= 0 || number > len(character.Inventory) {
-		return false
-	}
 
 	if quit {
 		return true
