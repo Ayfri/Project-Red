@@ -61,10 +61,11 @@ func (character *Character) calculateXPForLevel(level int) int {
 }
 
 func (character *Character) dead() {
-	if character.getHealth() >= 0 {
+	if character.getHealth() <= 0 {
 		fmt.Println("You're dead.")
 		character.Health = character.MaxHealth / 2
-		colorPrintf("Resurrected with %s health.\n", yellowString(character.showHealth()))
+		character.Money = int(float64(character.Money) * 0.8)
+		colorPrintf("Resurrected with %s health but lost some money.\n", yellowString(character.showHealth()))
 	}
 }
 

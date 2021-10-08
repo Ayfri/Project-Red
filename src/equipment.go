@@ -56,6 +56,7 @@ func (equipment *Equipment) Show() string {
 	head := "None"
 	tunic := "None"
 	boots := "None"
+	weapon := "None"
 
 	if equipment.Head != nil {
 		head = equipment.Head.Name
@@ -69,10 +70,15 @@ func (equipment *Equipment) Show() string {
 		boots = equipment.Boots.Name
 	}
 
+	if equipment.Weapon != nil {
+		weapon = equipment.Weapon.Name
+	}
+
 	return fmt.Sprintf(
-		`HEAD: %v, TUNIC: %v, BOOTS: %v`,
+		`HEAD: %v, TUNIC: %v, BOOTS: %v, WEAPON: %v`,
 		blueString(head),
 		blueString(tunic),
 		blueString(boots),
+		blueString(weapon),
 	)
 }

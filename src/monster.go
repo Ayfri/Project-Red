@@ -73,8 +73,8 @@ func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 
 func trainingFight(character *Character, monster *Monster) {
 	if !isThereMonster {
-		InitMonster(character.getLevel() * 20 + 10 + rand.Intn(30), character.getLevel() + 2 + rand.Intn(3), RandomRace())
-		colorPrintf("You search for a new monster...\n%v found, he is a %v with %v max health.", redString(monster.Name), greenString(monster.Race.Name), redString(str(monster.MaxHealth)))
+		InitMonster(character.getLevel() * 10 + 5 + rand.Intn(15), character.getLevel() + 1 + rand.Intn(4), RandomRace())
+		colorPrintf("You search for a new monster...\n%v found, he is a %v with %v max health.\n", redString(monster.Name), greenString(monster.Race.Name), redString(str(monster.MaxHealth)))
 	}
 
 	turn := 0
