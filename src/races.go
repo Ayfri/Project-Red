@@ -4,11 +4,14 @@ var races = []Race{
 	{
 		Name: "Altmer",
 		Boosts: map[string]int{
-			"Magic": 50,
+			"MagicResistance": 50,
 		},
 	},
 	{
 		Name: "Argonian",
+		Boosts : map[string]int {
+		    "Money": 15,
+		},
 	},
 	{
 		Name: "Bosmer",
@@ -37,7 +40,7 @@ var races = []Race{
 	{
 		Name: "Khajiit",
 		Boosts: map[string]int{
-			"UnarmedDamages": 15,
+			"UnarmedDamages": 6,
 		},
 	},
 	{
@@ -48,6 +51,10 @@ var races = []Race{
 	},
 	{
 		Name: "Orsimer",
+		Boosts: map[string]int{
+			"Money": 10,
+			"UnarmedDamages": 4,
+		},
 	},
 	{
 		Name: "Redguard",

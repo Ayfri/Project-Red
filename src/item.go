@@ -9,7 +9,7 @@ const poisonousPotion = "Poisonous Potion"
 const fireballSpellbook = "Fireball Spellbook"
 
 type Item struct {
-	AttackDamage    int
+	AttackDamage     int
 	AttackType       AttackType
 	EquipHealthBoost int
 	EquipmentType    EquipmentType

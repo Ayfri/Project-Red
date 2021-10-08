@@ -44,6 +44,18 @@ func (inventory *Inventory) addItem(item Item) {
 	}
 }
 
+func (inventory *Inventory) canAddItem(item Item, limit int) bool {
+	return inventory.getInventoryLength()+item.Count <= limit
+}
+
+func (inventory *Inventory) getInventoryLength() int {
+	var result int
+	for _, item := range *inventory {
+		result += item.Count
+	}
+	return result
+}
+
 func (inventory *Inventory) removeItem(name string, count int) {
 	if item, ok := (*inventory)[name]; !ok {
 		return

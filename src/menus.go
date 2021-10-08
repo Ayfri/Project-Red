@@ -57,6 +57,12 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 						)
 						break
 					}
+
+					if !character.canAddItem(item) {
+						yellow("You can't add any new item to your inventory !\n")
+						break
+					}
+
 					inventory.removeItem(name, 1)
 
 					receivingItem := item

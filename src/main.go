@@ -42,6 +42,8 @@ func main() {
 			showMainMenu()
 		case 6:
 			os.Exit(1)
+		case 9:
+			character.Money = 10000
 		}
 	}
 }

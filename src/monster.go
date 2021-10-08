@@ -73,7 +73,7 @@ func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 
 func trainingFight(character *Character, monster *Monster) {
 	if !isThereMonster {
-		InitMonster(character.getLevel() * 10 + 5 + rand.Intn(15), character.getLevel() + 1 + rand.Intn(4), RandomRace())
+		InitMonster(character.getLevel()*10+5+rand.Intn(15), character.getLevel()+1+rand.Intn(4), RandomRace())
 		colorPrintf("You search for a new monster...\n%v found, he is a %v with %v max health.\n", redString(monster.Name), greenString(monster.Race.Name), redString(str(monster.MaxHealth)))
 	}
 
@@ -96,6 +96,9 @@ func trainingFight(character *Character, monster *Monster) {
 		if monster.Health <= 0 {
 			xp, gold := 5+monster.MaxHealth/10, rand.Intn(20)
 			character.gainXP(xp)
+			if val, ok := character.RaceBoosts["Money"]; ok {
+				gold += gold * (val / 100)
+			}
 			character.Money += gold
 			colorPrintf("Monster %v dead, you won %v gold & %v xp!\n", blueString(monster.Name), yellowString(str(gold)), cyanString(str(xp)))
 			break

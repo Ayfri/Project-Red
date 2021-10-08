@@ -12,16 +12,17 @@ const XPLvl1 = 12
 const XPExponent = 1.04
 
 type Character struct {
-	Name       string
-	Race       Race
-	RaceBoosts map[string]int
-	Exp        int
-	MaxHealth  int
-	Health     int
-	Skill      []string
-	Money      int
-	Equipment  Equipment
-	Inventory  Inventory
+	Name           string
+	Race           Race
+	RaceBoosts     map[string]int
+	Exp            int
+	MaxHealth      int
+	Health         int
+	Skill          []string
+	Money          int
+	Equipment      Equipment
+	Inventory      Inventory
+	InventoryLimit int
 }
 
 type AttackType int
@@ -58,6 +59,10 @@ func (character *Character) attack(monster *Monster) {
 
 func (character *Character) calculateXPForLevel(level int) int {
 	return int(XPLvl1 + (XPLvl1 * math.Pow(float64(level), XPExponent)))
+}
+
+func (character *Character) canAddItem(item Item) (canAdd bool) {
+	return character.Inventory.canAddItem(item, character.InventoryLimit)
 }
 
 func (character *Character) dead() {
@@ -205,7 +210,7 @@ func InitInteractiveCharacter() {
 	character.MaxHealth = 100
 	character.Health = character.MaxHealth
 	character.Inventory = Inventory{}
-
+	character.InventoryLimit = 10
 	character.Equipment.Weapon = &Item{
 		AttackDamage:  5,
 		AttackType:    Melee,

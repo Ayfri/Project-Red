@@ -85,6 +85,11 @@ func (character *Character) forgeItem(item Item) {
 		return
 	}
 
+	if !character.canAddItem(item) {
+		yellow("You can't add any new item to your inventory !\n")
+		return
+	}
+
 	if item.ForgingRequires != nil {
 		for _, inventoryItem := range character.Inventory {
 			for name, count := range item.ForgingRequires {
@@ -99,6 +104,8 @@ func (character *Character) forgeItem(item Item) {
 	resultingItem.Count = 1
 	character.Inventory.addItem(resultingItem)
 }
+
+
 
 // TODO : Delete this func
 // From stream twitch.tv/ayfri1015, from ArFTNL.
