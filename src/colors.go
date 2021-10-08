@@ -63,7 +63,7 @@ func printColor(c Color, text string, args ...interface{}) {
 	if !strings.HasSuffix(text, "\n") {
 		text += "\n"
 	}
-	fmt.Fprintf(os.Stdout, color(c, text), args...)
+	fmt.Printf(color(c, text), args...)
 }
 
 func blueString(text string, args ...interface{}) string {
@@ -74,7 +74,7 @@ func blue(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Blue, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Blue, text, args...)
 	}
 }
 
@@ -86,7 +86,7 @@ func bold(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Bold, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Bold, text, args...)
 	}
 }
 
@@ -98,7 +98,7 @@ func cyan(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Cyan, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Cyan, text, args...)
 	}
 }
 
@@ -110,7 +110,7 @@ func green(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Green, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Green, text, args...)
 	}
 }
 
@@ -122,7 +122,7 @@ func magenta(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Magenta, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Magenta, text, args...)
 	}
 }
 
@@ -134,7 +134,7 @@ func red(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Red, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Red, text, args...)
 	}
 }
 
@@ -146,7 +146,7 @@ func yellow(text string, args ...interface{}) {
 	if len(args) == 0 {
 		printColor(Yellow, text)
 	} else {
-		printColor(Blue, text, args)
+		printColor(Yellow, text, args...)
 	}
 }
 

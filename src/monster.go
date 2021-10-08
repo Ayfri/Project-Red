@@ -15,6 +15,8 @@ type Monster struct {
 
 var monster Monster
 var isInCombat bool
+var isThereMonster = true
+var mobNames = []string{"Abrax", "Aeryle", "Afelanidd", "Akvaron", "Almen", "Anjak", "Ariann", "Bassto", "Beele", "Brirelin", "Cambree", "Darusor", "Darzed", "Derle", "Eng", "Ermon", "Flayre", "Gawle", "Glish", "Helsdal", "Hoprig", "Japloon", "Kashtuul", "Kelmerveld", "Kipplob", "Kizarlon", "Leet", "Lizki", "Marb", "Masply", "Merinard", "Mersic", "Milzrik", "Myloryx", "Narvik", "Nesser", "Nyren", "Quelneth", "Quilium", "Quolbin", "Retheer", "Rhiss", "Rience", "Riksul", "Saar", "Saihail", "Shadar", "Simara", "Sounx", "Sraknis", "Syle", "Terragg", "Tourrhok", "Tsai", "Udria", "Vadru", "Varnac", "Varsta", "Viskrek", "Vonir", "Vorshak", "Vryxnir", "Wadziq", "Wryxerg", "Xinsce", "Zamorla", "Zash", "Zeige", "Zheral", "Zoranji"}
 
 func InitGoblin(name string, maxHealth int, attackDamage int) Monster {
 	return Monster{
@@ -23,6 +25,10 @@ func InitGoblin(name string, maxHealth int, attackDamage int) Monster {
 		Health:       maxHealth,
 		AttackDamage: attackDamage,
 	}
+}
+
+func InitMonster(maxHealth int, attackDamage int, race Race) {
+	monster = Monster{attackDamage, maxHealth, maxHealth, Random(mobNames), race}
 }
 
 func (monster *Monster) attack(character *Character) {
@@ -54,18 +60,22 @@ func (monster *Monster) specialAttack(character *Character) {
 
 func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 	if boost, ok := monster.Race.Boosts["MagicResistance"]; weapon.AttackType == Magic && ok {
-		damages = int(float32(boost) / float32(boost / 100))
+		damages = int(float32(boost) / float32(boost/100))
 	}
 	if boost, ok := monster.Race.Boosts["PoisonResistance"]; weapon.AttackType == Poison && ok {
-		damages = int(float32(boost) / float32(boost / 100))
+		damages = int(float32(boost) / float32(boost/100))
 	}
 	if boost, ok := monster.Race.Boosts["FireResistance"]; weapon.AttackType == Fire && ok {
-		damages = int(float32(boost) / float32(boost / 100))
+		damages = int(float32(boost) / float32(boost/100))
 	}
 	monster.Health -= damages
 }
 
 func trainingFight(character *Character, monster *Monster) {
+	if !isThereMonster {
+		InitMonster(character.getLevel() * 20 + 10 + rand.Intn(30), character.getLevel() + 2 + rand.Intn(3), RandomRace())
+	}
+
 	turn := 0
 
 	isInCombat = true
@@ -91,5 +101,6 @@ func trainingFight(character *Character, monster *Monster) {
 		}
 	}
 	isInCombat = false
+	isThereMonster = false
 	colorFprintf("Combat terminated in %v turn.\n", cyanString(str(turn)))
 }

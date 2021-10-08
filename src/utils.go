@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"regexp"
 	"strconv"
 	"strings"
@@ -98,3 +99,10 @@ func InputTextTrimmed(name string) string {
 	return input
 }
 
+func Random(array []string) string {
+	return array[rand.Intn(len(array))]
+}
+
+func RandomRace() Race {
+	return races[rand.Intn(len(races))]
+}

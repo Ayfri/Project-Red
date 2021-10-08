@@ -103,6 +103,10 @@ func showMainMenu() {
 	green("2: Show Inventory.")
 	blue("3: Speak to Merchant.")
 	magenta("4: Speak to Blacksmith.")
-	yellow("5: Fight with training goblin.")
+	monsterText := "Fight with training goblin."
+	if !isThereMonster {
+		monsterText = "Search monster."
+	}
+	yellow("5: %v", monsterText)
 	red("6: Quit")
 }
