@@ -9,12 +9,14 @@ const poisonousPotion = "Poisonous Potion"
 const fireballSpellbook = "Fireball Spellbook"
 
 type Item struct {
-	Count            int
-	Name             string
-	Price            int
-	ForgingRequires  ForgingRequires
-	ForgingPrice     int
-	EquipmentType    EquipmentType
+	AttackDamage    int
+	AttackType       AttackType
 	EquipHealthBoost int
+	EquipmentType    EquipmentType
+	Count            int
+	ForgingPrice     int
+	ForgingRequires  ForgingRequires
+	Name             string
 	OnUse            func(item Item)
+	Price            int
 }

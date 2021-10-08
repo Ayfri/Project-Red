@@ -5,18 +5,33 @@ import (
 )
 
 type Equipment struct {
-	Head  *Item
-	Tunic *Item
-	Boots *Item
+	Head   *Item
+	Tunic  *Item
+	Boots  *Item
+	Weapon *Item
 }
 
 type EquipmentType int
 
 const (
-	Head  EquipmentType = 1 << 6
-	Tunic               = 1 << 7
-	Boots               = 1 << 8
+	Head   EquipmentType = 1 << 6
+	Tunic                = 1 << 7
+	Boots                = 1 << 8
+	Weapon               = 1 << 9
 )
+
+func (equipment *Equipment) GetWeaponType() string {
+	switch equipment.Weapon.AttackType {
+	case Fire:
+		return "fire"
+	case Poison:
+		return "poison"
+	case Magic:
+		return "magic"
+	default:
+		return "melee"
+	}
+}
 
 func (equipment *Equipment) getHealthBoost() int {
 	var result int

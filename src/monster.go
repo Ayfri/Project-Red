@@ -5,19 +5,20 @@ import (
 )
 
 type Monster struct {
-	Name         string
-	MaxHealth    int
-	Health       int
 	AttackDamage int
+	Health       int
+	MaxHealth    int
+	Name         string
+	Race         Race
 }
 
 var trainingGoblin Monster
 
 func InitGoblin(name string, maxHealth int, attackDamage int) Monster {
-	return Monster {
-	    Name: name,
-		MaxHealth: maxHealth,
-		Health: maxHealth,
+	return Monster{
+		Name:         name,
+		MaxHealth:    maxHealth,
+		Health:       maxHealth,
 		AttackDamage: attackDamage,
 	}
 }
@@ -28,7 +29,7 @@ func (monster *Monster) attack(character *Character) {
 }
 
 func (monster *Monster) goblinPattern(turn int, character *Character) {
-	if turn % 3 == 0 {
+	if turn%3 == 0 {
 		monster.specialAttack(character)
 	} else {
 		monster.attack(character)
@@ -47,6 +48,19 @@ func (monster *Monster) specialAttack(character *Character) {
 	damages := monster.AttackDamage * 2
 	character.Health -= damages
 	printAttack(*monster, *character, damages)
+}
+
+func (monster *Monster) HandleAttack(weapon *Item, damages int) {
+	if boost, ok := monster.Race.Boosts["MagicResistance"]; weapon.AttackType == Magic && ok {
+		damages = int(float32(boost) / float32(boost / 100))
+	}
+	if boost, ok := monster.Race.Boosts["PoisonResistance"]; weapon.AttackType == Poison && ok {
+		damages = int(float32(boost) / float32(boost / 100))
+	}
+	if boost, ok := monster.Race.Boosts["FireResistance"]; weapon.AttackType == Fire && ok {
+		damages = int(float32(boost) / float32(boost / 100))
+	}
+	monster.Health -= damages
 }
 
 func trainingFight(character *Character, monster *Monster) {
