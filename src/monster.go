@@ -13,7 +13,8 @@ type Monster struct {
 	Race         Race
 }
 
-var trainingGoblin Monster
+var monster Monster
+var isInCombat bool
 
 func InitGoblin(name string, maxHealth int, attackDamage int) Monster {
 	return Monster{
@@ -67,6 +68,7 @@ func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 func trainingFight(character *Character, monster *Monster) {
 	turn := 0
 
+	isInCombat = true
 	yellow("Press q to abandon")
 	for {
 		turn++
@@ -88,5 +90,6 @@ func trainingFight(character *Character, monster *Monster) {
 			break
 		}
 	}
+	isInCombat = false
 	colorFprintf("Combat terminated in %v turn.\n", cyanString(str(turn)))
 }

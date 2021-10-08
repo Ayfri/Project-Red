@@ -90,7 +90,11 @@ var merchant = NPC{
 			Name:  poisonousPotion,
 			Price: 6,
 			OnUse: func(item Item) {
-				character.takePoisonPotion()
+				if isInCombat {
+					character.throwPoisonPotion(&monster)
+				} else {
+					character.takePoisonPotion()
+				}
 			},
 		},
 		"Fireball Spellbook": Item{
