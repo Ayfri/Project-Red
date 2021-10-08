@@ -85,7 +85,7 @@ var merchant = NPC{
 				character.takeHealthPotion()
 			},
 		},
-		"Poisonous Potion": Item{
+		"Poisonous Potions": Item{
 			Count: 1,
 			Name:  poisonousPotion,
 			Price: 6,
@@ -95,6 +95,18 @@ var merchant = NPC{
 				} else {
 					character.takePoisonPotion()
 				}
+			},
+		},
+		"Inventory Limits": Item{
+			Count: 3,
+			Name: inventoryLimit,
+			Price: 30,
+			OnUse: func(item Item) {
+				if character.InventoryLimit == 30 {
+					yellow("You can't upgrade your inventory more.")
+					return
+				}
+				character.InventoryLimit += 10
 			},
 		},
 		"Fireball Spellbook": Item{

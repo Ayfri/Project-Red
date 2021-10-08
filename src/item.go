@@ -6,6 +6,7 @@ const trollSkin = "Troll Skin"
 const wolfFur = "Wolf Fur"
 const healthPotion = "Health Potion"
 const poisonousPotion = "Poisonous Potion"
+const inventoryLimit = "Inventory Limit"
 const fireballSpellbook = "Fireball Spellbook"
 
 type Item struct {
