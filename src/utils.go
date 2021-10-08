@@ -68,8 +68,8 @@ func str(number int) string {
 
 func InputNumber() (number int, quit bool) {
 	input, _ := reader.ReadString('\n')
-	input = strings.TrimPrefix(input, "\n")
-	if number, err := strconv.Atoi(input); err != nil {
+	input = strings.TrimSuffix(input, "\n")
+	if number, err := strconv.Atoi(input); err == nil {
 		return number, false
 	}
 	return 0, true

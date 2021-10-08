@@ -8,7 +8,7 @@ var races = []Race{
 		},
 	},
 	{
-		Name:   "Argonian",
+		Name: "Argonian",
 	},
 	{
 		Name: "Bosmer",
@@ -47,7 +47,7 @@ var races = []Race{
 		},
 	},
 	{
-		Name:   "Orsimer",
+		Name: "Orsimer",
 	},
 	{
 		Name: "Redguard",
@@ -60,7 +60,6 @@ var races = []Race{
 type Race struct {
 	Boosts map[string]int
 	Name   string
-	Skills []string
 }
 
 func FindRace(name string) (result Race, ok bool) {

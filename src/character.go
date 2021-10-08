@@ -177,6 +177,8 @@ func InitInteractiveCharacter() {
 	character.Health = character.getMaxHealth() / 2
 	character.Lvl = 1
 	character.Skill = append(character.Skill, "Punch")
+	character.MaxHealth = 100
+	character.Health = character.MaxHealth
 }
 
 func RaceChooser() Race {
