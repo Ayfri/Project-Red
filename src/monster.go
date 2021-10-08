@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 type Monster struct {
@@ -80,7 +81,10 @@ func trainingFight(character *Character, monster *Monster) {
 		}
 
 		if monster.Health <= 0 {
-			colorFprintf("Monster %v dead, you won !\n", blueString(monster.Name))
+			xp, gold := 5+monster.MaxHealth/10, rand.Intn(20)
+			character.gainXP(xp)
+			character.Money += gold
+			colorFprintf("Monster %v dead, you won %v gold & %v xp!\n", blueString(monster.Name), yellowString(str(gold)), cyanString(str(xp)))
 			break
 		}
 	}

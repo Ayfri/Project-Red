@@ -2,13 +2,16 @@ package main
 
 import (
 	"bufio"
+	"math/rand"
 	"os"
+	"time"
 )
 
 var reader = bufio.NewReader(os.Stdin)
 var character Character
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	InitColors()
 	InitInteractiveCharacter()
 	trainingGoblin = InitGoblin("Training Goblin", 40, 5)

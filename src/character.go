@@ -2,16 +2,20 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strings"
 	"time"
 )
 
+const XPLvl1 = 12
+const XPExponent = 1.04
+
 type Character struct {
 	Name       string
 	Race       Race
 	RaceBoosts map[string]int
-	Lvl        int
+	Exp        int
 	MaxHealth  int
 	Health     int
 	Skill      []string
@@ -52,6 +56,10 @@ func (character *Character) attack(monster *Monster) {
 	printAttack(*character, *monster, damages)
 }
 
+func (character *Character) calculateXPForLevel(level int) int {
+	return int(XPLvl1 + (XPLvl1 * math.Pow(float64(level), XPExponent)))
+}
+
 func (character *Character) dead() {
 	if character.getHealth() >= 0 {
 		fmt.Println("You're dead.")
@@ -72,7 +80,7 @@ Equipment: %v
 		boldString(character.Name),
 		greenString(character.Race.Name),
 		redString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
-		magentaString(str(character.Lvl)),
+		magentaString(str(character.getLevel())),
 		yellowString(str(character.Money)),
 		character.Equipment.Show(),
 	)
@@ -97,6 +105,25 @@ func (character *Character) equip(item Item) {
 		}
 		character.Equipment.Boots = &item
 	}
+}
+
+func (character *Character) gainXP(count int) {
+	currentLevel := character.getLevel()
+	character.Exp += count
+	newLevel := character.getLevel()
+	if newLevel > currentLevel {
+		character.MaxHealth = int(float64(character.MaxHealth) * 1.2)
+		colorFprintf("Level up !\nMax Health increased.\nYou are now level %v.\n", magentaString(str(newLevel)))
+	}
+}
+
+func (character *Character) getLevel() int {
+	result, maxXP := 0, character.calculateXPForLevel(0)
+	for maxXP < character.Exp {
+		result++
+		maxXP += character.calculateXPForLevel(result)
+	}
+	return result
 }
 
 func (character *Character) getHealth() int {
@@ -124,7 +151,6 @@ func InitCharacter() {
 	character = Character{
 		Name:      "Ayfri",
 		Race:      races[0],
-		Lvl:       1,
 		MaxHealth: 100,
 		Health:    40,
 		Money:     100,
@@ -174,7 +200,6 @@ func InitInteractiveCharacter() {
 	colorFprintf("What is your Race ?\n")
 	character.Race = RaceChooser()
 	character.Health = character.getMaxHealth() / 2
-	character.Lvl = 1
 	character.Skill = append(character.Skill, "Punch")
 	character.MaxHealth = 100
 	character.Health = character.MaxHealth
