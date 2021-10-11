@@ -22,11 +22,11 @@ func printAttack(attacker interface{}, receiver interface{}, damages int) {
 	switch receiver.(type) {
 	case Monster:
 		monster := receiver.(Monster)
-		colorPrintf("%v attacked %v, %v damages taken.\n", redString(attacker.(Character).Name), boldString(monster.Name), str(damages))
+		colorPrintf("%v attacked %v, %v damages taken.\n", boldString(attacker.(Character).Name), redString(monster.Name), str(damages))
 		monster.printHealth()
 	case Character:
 		character := receiver.(Character)
-		colorPrintf("%v attacked %v, %v damages taken.\n", boldString(attacker.(Monster).Name), redString(character.Name), str(damages))
+		colorPrintf("%v attacked %v, %v damages taken.\n", redString(attacker.(Monster).Name), boldString(character.Name), str(damages))
 		character.printHealth()
 	}
 }
