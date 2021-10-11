@@ -63,9 +63,11 @@ func (npc *NPC) showMenu() {
 		switch input {
 		case 1:
 			npc.Inventory.makeSelector(npc.getInventorySelectorType(), npc.speak)
+			return
 		case 2:
 			if npc.CanBuyItems {
 				character.Inventory.makeSelector(PlayerSellInventory, npc.speak)
+				return
 			} else {
 				return
 			}
