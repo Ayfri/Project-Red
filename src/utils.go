@@ -68,6 +68,7 @@ func str(number int) string {
 }
 
 func InputNumber() (number int, quit bool) {
+	//debug.PrintStack()
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSuffix(input, "\n")
 	if input == "q" {

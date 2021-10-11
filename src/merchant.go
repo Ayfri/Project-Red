@@ -37,11 +37,14 @@ func (npc *NPC) speak() {
 
 func (npc *NPC) showMenu() {
 	var interactionName string
+	var input int
+	var quit bool
+
 	switch npc.Type {
 	case Merchant:
 		interactionName = "Buy"
 	case Blacksmith:
-		 interactionName = "Craft"
+		interactionName = "Craft"
 	}
 
 	index := 1
@@ -54,11 +57,9 @@ func (npc *NPC) showMenu() {
 	index++
 	colorPrintf("%v. %v\n", cyanString(str(index)), redString("Quit"))
 
-	for {
-		input, quit := InputNumber()
-		if quit {
-			return
-		}
+	for !quit && input != 3 {
+		input, quit = InputNumber()
+
 		switch input {
 		case 1:
 			npc.Inventory.makeSelector(npc.getInventorySelectorType(), npc.speak)
@@ -68,8 +69,6 @@ func (npc *NPC) showMenu() {
 			} else {
 				return
 			}
-		case 3:
-			return
 		}
 	}
 }

@@ -36,7 +36,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 
 		if quit {
 			whenQuit()
-			break
+			return
 		}
 
 		if number <= 0 || number > len(*inventory) {
