@@ -216,7 +216,7 @@ func InitInteractiveCharacter() {
 		AttackType:    Melee,
 		Count:         1,
 		EquipmentType: Weapon,
-		Name:          "Iron Sword",
+		Name:          ironSword,
 		Price:         10,
 	}
 }
