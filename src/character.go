@@ -104,12 +104,16 @@ func (character *Character) equip(item Item) {
 			character.Inventory.addItem(*character.Equipment.Tunic)
 		}
 		character.Equipment.Tunic = &item
-
 	case Boots:
 		if character.Equipment.Boots != nil {
 			character.Inventory.addItem(*character.Equipment.Boots)
 		}
 		character.Equipment.Boots = &item
+	case Weapon:
+		if character.Equipment.Weapon != nil {
+			character.Inventory.addItem(*character.Equipment.Weapon)
+		}
+		character.Equipment.Weapon = &item
 	}
 }
 

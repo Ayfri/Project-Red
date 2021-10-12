@@ -78,7 +78,7 @@ func (npc *NPC) showMenu() {
 var merchant = NPC{
 	CanBuyItems: true,
 	Inventory: Inventory{
-		"Health Potions": Item{
+		healthPotion: Item{
 			Count: 1,
 			Name:  healthPotion,
 			Price: 3,
@@ -86,7 +86,7 @@ var merchant = NPC{
 				character.takeHealthPotion()
 			},
 		},
-		"Poisonous Potions": Item{
+		poisonousPotion: Item{
 			Count: 1,
 			Name:  poisonousPotion,
 			Price: 6,
@@ -98,7 +98,7 @@ var merchant = NPC{
 				}
 			},
 		},
-		"Inventory Limits": Item{
+		inventoryLimit: Item{
 			Count: 3,
 			Name: inventoryLimit,
 			Price: 30,
@@ -110,7 +110,7 @@ var merchant = NPC{
 				character.InventoryLimit += 10
 			},
 		},
-		"Fireball Spellbook": Item{
+		fireballSpellbook: Item{
 			Count: 1,
 			Name:  fireballSpellbook,
 			Price: 25,
@@ -118,22 +118,22 @@ var merchant = NPC{
 				character.spellBook(fireballSpellbook)
 			},
 		},
-		"Wolf Fur": Item{
+		wolfFur: Item{
 			Count: 10,
 			Name:  wolfFur,
 			Price: 4,
 		},
-		"Troll Skins": Item{
+		trollSkin: Item{
 			Count: 10,
 			Name:  trollSkin,
 			Price: 7,
 		},
-		"Boar's Leathers": Item{
+		boarFur: Item{
 			Count: 10,
 			Name:  boarFur,
 			Price: 3,
 		},
-		"Crow's Leathers": Item{
+		crowFeather: Item{
 			Count: 10,
 			Name:  crowFeather,
 			Price: 1,

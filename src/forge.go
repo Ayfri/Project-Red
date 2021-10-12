@@ -9,9 +9,9 @@ type ForgingRequires map[string]int
 
 var blacksmith = NPC{
 	Inventory: Inventory{
-		"Adventurer's Hats": Item{
+		adventurerHat: Item{
 			Count:            1,
-			Name:             "Adventurer's Hat",
+			Name:             adventurerHat,
 			ForgingRequires:  ForgingRequires{crowFeather: 1, boarFur: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Head,
@@ -20,9 +20,9 @@ var blacksmith = NPC{
 				character.equip(item)
 			},
 		},
-		"Adventurer's Tunics": Item{
+		adventurerTunic: Item{
 			Count:            1,
-			Name:             "Adventurer's Tunic",
+			Name:             adventurerTunic,
 			ForgingRequires:  ForgingRequires{wolfFur: 2, boarFur: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Tunic,
@@ -31,13 +31,23 @@ var blacksmith = NPC{
 				character.equip(item)
 			},
 		},
-		"Adventurer's Boots": Item{
+		adventurerBoot: Item{
 			Count:            1,
-			Name:             "Adventurer's Boots",
+			Name:             adventurerBoot,
 			ForgingRequires:  ForgingRequires{wolfFur: 1, boarFur: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Boots,
 			EquipHealthBoost: 15,
+			OnUse: func(item Item) {
+				character.equip(item)
+			},
+		},
+		dragonBane: Item{
+			Count:            1,
+			Name:             dragonBane,
+			ForgingRequires:  ForgingRequires{wolfFur: 1, boarFur: 1},
+			ForgingPrice:     5,
+			EquipmentType:    Weapon,
 			OnUse: func(item Item) {
 				character.equip(item)
 			},

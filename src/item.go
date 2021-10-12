@@ -1,7 +1,11 @@
 package main
 
+const adventurerBoot = "Adventurer's Boots"
+const adventurerHat = "Adventurer's Hats"
+const adventurerTunic = "Adventurer's Tunics"
 const boarFur = "Boar Fur"
 const crowFeather = "Crow Feather"
+const dragonBane = "Dragonbane"
 const fireballSpellbook = "Fireball Spellbook"
 const healthPotion = "Health Potion"
 const inventoryLimit = "Inventory Limit"
