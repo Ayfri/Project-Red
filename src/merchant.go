@@ -2,9 +2,9 @@ package main
 
 type NPC struct {
 	CanBuyItems bool
-	Inventory Inventory
-	Name      string
-	Type      NPCType
+	Inventory   Inventory
+	Name        string
+	Type        NPCType
 }
 
 type NPCType int
@@ -100,7 +100,7 @@ var merchant = NPC{
 		},
 		inventoryLimit: Item{
 			Count: 3,
-			Name: inventoryLimit,
+			Name:  inventoryLimit,
 			Price: 30,
 			OnUse: func(item Item) {
 				if character.InventoryLimit == 30 {

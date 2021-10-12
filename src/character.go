@@ -12,14 +12,14 @@ const XPLvl1 = 12
 const XPExponent = 1.04
 
 type Character struct {
-	Name       string
-	Race       Race
-	RaceBoosts map[string]int
-	Exp        int
+	Name           string
+	Race           Race
+	RaceBoosts     map[string]int
+	Exp            int
 	MaxHealth      int
-	Health     int
-	Skill      []string
-	Money      int
+	Health         int
+	Skill          []string
+	Money          int
 	Equipment      Equipment
 	Inventory      Inventory
 	InventoryLimit int

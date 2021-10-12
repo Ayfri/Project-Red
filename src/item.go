@@ -10,8 +10,8 @@ const fiber = "Fiber"
 const fireballSpellbook = "Fireball Spellbook"
 const healthPotion = "Health Potion"
 const inventoryLimit = "Inventory Limit"
-const ironSword = "Iron Sword"
 const iron = "Iron"
+const ironSword = "Iron Sword"
 const poisonousPotion = "Poisonous Potion"
 
 type Item struct {
@@ -21,8 +21,8 @@ type Item struct {
 	EquipmentType    EquipmentType
 	Count            int
 	ForgingPrice     int
-	ForgingRequires ForgingRequires
-	Name            string
-	OnUse           func(item Item)
+	ForgingRequires  ForgingRequires
+	Name             string
+	OnUse            func(item Item)
 	Price            int
 }

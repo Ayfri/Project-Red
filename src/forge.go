@@ -43,11 +43,11 @@ var blacksmith = NPC{
 			},
 		},
 		dragonBane: Item{
-			Count:            1,
-			Name:             dragonBane,
-			ForgingRequires:  ForgingRequires{iron: 4, fiber: 1},
-			ForgingPrice:     5,
-			EquipmentType:    Weapon,
+			Count:           1,
+			Name:            dragonBane,
+			ForgingRequires: ForgingRequires{iron: 4, fiber: 1},
+			ForgingPrice:    5,
+			EquipmentType:   Weapon,
 			OnUse: func(item Item) {
 				character.equip(item)
 			},
@@ -114,8 +114,6 @@ func (character *Character) forgeItem(item Item) {
 	resultingItem.Count = 1
 	character.Inventory.addItem(resultingItem)
 }
-
-
 
 // TODO : Delete this func
 // From stream twitch.tv/ayfri1015, from ArFTNL.

@@ -20,7 +20,7 @@ func combatMenu(turn int, character *Character, enemy *Monster) bool {
 	case 1:
 		character.attack(enemy)
 	case 2:
-		character.Inventory.makeSelector(PlayerInventory, func(){})
+		character.Inventory.makeSelector(PlayerInventory, func() {})
 	}
 	return false
 }

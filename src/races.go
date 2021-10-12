@@ -9,8 +9,8 @@ var races = []Race{
 	},
 	{
 		Name: "Argonian",
-		Boosts : map[string]int {
-		    "Money": 15,
+		Boosts: map[string]int{
+			"Money": 15,
 		},
 	},
 	{
@@ -52,7 +52,7 @@ var races = []Race{
 	{
 		Name: "Orsimer",
 		Boosts: map[string]int{
-			"Money": 10,
+			"Money":          10,
 			"UnarmedDamages": 4,
 		},
 	},
