@@ -12,7 +12,7 @@ var blacksmith = NPC{
 		adventurerHat: Item{
 			Count:            1,
 			Name:             adventurerHat,
-			ForgingRequires:  ForgingRequires{crowFeather: 1, boarFur: 1},
+			ForgingRequires:  ForgingRequires{fiber: 1, boarFur: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Head,
 			EquipHealthBoost: 10,
@@ -23,7 +23,7 @@ var blacksmith = NPC{
 		adventurerTunic: Item{
 			Count:            1,
 			Name:             adventurerTunic,
-			ForgingRequires:  ForgingRequires{wolfFur: 2, boarFur: 1},
+			ForgingRequires:  ForgingRequires{iron: 2, boarFur: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Tunic,
 			EquipHealthBoost: 25,
@@ -34,7 +34,7 @@ var blacksmith = NPC{
 		adventurerBoot: Item{
 			Count:            1,
 			Name:             adventurerBoot,
-			ForgingRequires:  ForgingRequires{wolfFur: 1, boarFur: 1},
+			ForgingRequires:  ForgingRequires{iron: 1, boarFur: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Boots,
 			EquipHealthBoost: 15,
@@ -45,7 +45,7 @@ var blacksmith = NPC{
 		dragonBane: Item{
 			Count:            1,
 			Name:             dragonBane,
-			ForgingRequires:  ForgingRequires{wolfFur: 1, boarFur: 1},
+			ForgingRequires:  ForgingRequires{iron: 4, fiber: 1},
 			ForgingPrice:     5,
 			EquipmentType:    Weapon,
 			OnUse: func(item Item) {

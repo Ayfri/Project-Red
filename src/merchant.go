@@ -2,9 +2,9 @@ package main
 
 type NPC struct {
 	CanBuyItems bool
-	Inventory   Inventory
-	Name        string
-	Type        NPCType
+	Inventory Inventory
+	Name      string
+	Type      NPCType
 }
 
 type NPCType int
@@ -118,14 +118,14 @@ var merchant = NPC{
 				character.spellBook(fireballSpellbook)
 			},
 		},
-		wolfFur: Item{
+		iron: Item{
 			Count: 10,
-			Name:  wolfFur,
+			Name:  iron,
 			Price: 4,
 		},
-		trollSkin: Item{
+		cowLeather: Item{
 			Count: 10,
-			Name:  trollSkin,
+			Name:  cowLeather,
 			Price: 7,
 		},
 		boarFur: Item{
@@ -133,9 +133,9 @@ var merchant = NPC{
 			Name:  boarFur,
 			Price: 3,
 		},
-		crowFeather: Item{
+		fiber: Item{
 			Count: 10,
-			Name:  crowFeather,
+			Name:  fiber,
 			Price: 1,
 		},
 	},

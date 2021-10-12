@@ -8,9 +8,9 @@ import (
 type Monster struct {
 	AttackDamage int
 	Health       int
-	MaxHealth    int
-	Name         string
-	Race         Race
+	MaxHealth int
+	Name      string
+	Race      Race
 }
 
 var monster Monster
