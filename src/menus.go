@@ -58,15 +58,16 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 						break
 					}
 
-					if !character.canAddItem(item) {
+					receivingItem := item
+					receivingItem.Count = 1
+
+					if !character.canAddItem(receivingItem) {
 						yellow("You can't add any new item to your inventory !\n")
 						break
 					}
 
 					inventory.removeItem(name, 1)
 
-					receivingItem := item
-					receivingItem.Count = 1
 					character.Money -= item.Price
 					character.Inventory.addItem(receivingItem)
 					printItemTaken("One %v bought.\n", item.Name)
