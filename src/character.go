@@ -230,16 +230,16 @@ func RaceChooser() Race {
 	var raceNames = RaceNames()
 	sort.Strings(raceNames)
 	for index, race := range RaceNames() {
-		colorPrintf("%v. %v\n", cyanString(str(index)), race)
+		colorPrintf("%v. %v\n", cyanString(str(index+1)), race)
 	}
 
 	for {
 		number, _ := InputNumber()
-		if number < 0 || number > len(raceNames) {
+		if number < 1 || number > len(raceNames) {
 			continue
 		}
 
-		result = races[number]
+		result = races[number-1]
 		break
 	}
 	return result
