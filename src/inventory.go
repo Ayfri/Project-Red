@@ -25,7 +25,7 @@ func (inventory *Inventory) show(selectorType SelectorType) {
 		index := cyanString(str(i + 1))
 
 		switch selectorType {
-		case MerchantInventory:
+		case MerchantInventory, PlayerSellInventory:
 			colorPrintf("%v. %v: %v %v\n", index, name, greenString(count), yellowString("(Price: %v)", str(item.Price)))
 		case PlayerInventory:
 			colorPrintf("%v. %v: %v\n", index, name, greenString(count))

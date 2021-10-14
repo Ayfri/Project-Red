@@ -84,7 +84,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 				case PlayerSellInventory:
 					inventory.removeItem(name, 1)
 					character.Money += item.Price
-					colorPrintf("You sold %v for %v money.", name, yellowString(str(item.Price)))
+					colorPrintf("You sold %v for %v money.\n", blueString(name), yellowString(str(item.Price)))
 				case BlacksmithInventory:
 					if canForge, forgeErr := character.canForge(item); canForge {
 						character.forgeItem(item)
