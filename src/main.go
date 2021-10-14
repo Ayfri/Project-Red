@@ -14,7 +14,8 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	InitColors()
 	InitInteractiveCharacter()
-	monster = InitGoblin("Training Goblin", 40, 5)
+	race, _ := FindRace("Imperial")
+	InitMonster(40, 5, race, trainingMonster)
 	showMainMenu()
 	for {
 		input, quit := InputNumber()
@@ -38,7 +39,7 @@ func main() {
 			blacksmith.speak()
 			showMainMenu()
 		case 5:
-			trainingFight(&character, &monster)
+			fight(&character, &monster)
 			showMainMenu()
 		case 6:
 			os.Exit(1)

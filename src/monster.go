@@ -13,22 +13,18 @@ type Monster struct {
 	Race         Race
 }
 
+const trainingMonster = "Training Imperial"
 var monster Monster
 var isInCombat bool
 var isThereMonster = true
 var mobNames = []string{"Abrax", "Aeryle", "Afelanidd", "Akvaron", "Almen", "Anjak", "Ariann", "Bassto", "Beele", "Brirelin", "Cambree", "Darusor", "Darzed", "Derle", "Eng", "Ermon", "Flayre", "Gawle", "Glish", "Helsdal", "Hoprig", "Japloon", "Kashtuul", "Kelmerveld", "Kipplob", "Kizarlon", "Leet", "Lizki", "Marb", "Masply", "Merinard", "Mersic", "Milzrik", "Myloryx", "Narvik", "Nesser", "Nyren", "Quelneth", "Quilium", "Quolbin", "Retheer", "Rhiss", "Rience", "Riksul", "Saar", "Saihail", "Shadar", "Simara", "Sounx", "Sraknis", "Syle", "Terragg", "Tourrhok", "Tsai", "Udria", "Vadru", "Varnac", "Varsta", "Viskrek", "Vonir", "Vorshak", "Vryxnir", "Wadziq", "Wryxerg", "Xinsce", "Zamorla", "Zash", "Zeige", "Zheral", "Zoranji"}
 
-func InitGoblin(name string, maxHealth int, attackDamage int) Monster {
-	return Monster{
-		Name:         name,
-		MaxHealth:    maxHealth,
-		Health:       maxHealth,
-		AttackDamage: attackDamage,
-	}
+func InitMonster(maxHealth int, attackDamage int, race Race, name string) {
+	monster = Monster{attackDamage, maxHealth, maxHealth, name, race}
 }
 
-func InitMonster(maxHealth int, attackDamage int, race Race) {
-	monster = Monster{attackDamage, maxHealth, maxHealth, Random(mobNames), race}
+func InitRandomMonster(maxHealth int, attackDamage int, race Race) {
+	InitMonster(maxHealth, attackDamage, race, Random(mobNames))
 }
 
 func (monster *Monster) attack(character *Character) {
@@ -44,20 +40,6 @@ func (monster *Monster) goblinPattern(turn int, character *Character) {
 	}
 }
 
-func (monster *Monster) printHealth() {
-	colorPrintf("Monster %v Health\n", redString(monster.showHealth()))
-}
-
-func (monster *Monster) showHealth() string {
-	return fmt.Sprintf("%v/%v", monster.Health, monster.MaxHealth)
-}
-
-func (monster *Monster) specialAttack(character *Character) {
-	damages := monster.AttackDamage * 2
-	character.Health -= damages
-	printAttack(*monster, *character, damages)
-}
-
 func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 	if boost, ok := monster.Race.Boosts["MagicResistance"]; weapon.AttackType == Magic && ok {
 		damages = int(float32(boost) / float32(boost/100))
@@ -71,10 +53,36 @@ func (monster *Monster) HandleAttack(weapon *Item, damages int) {
 	monster.Health -= damages
 }
 
-func trainingFight(character *Character, monster *Monster) {
+func (monster *Monster) printHealth() {
+	colorPrintf("Monster %v Health\n", redString(monster.showHealth()))
+}
+
+func(monster *Monster) randomPattern(turn int, character *Character) {
+	if rand.Intn(10) %3 == 0 {
+		monster.specialAttack(character)
+	} else {
+		monster.attack(character)
+	}
+}
+
+func (monster *Monster) showHealth() string {
+	return fmt.Sprintf("%v/%v", monster.Health, monster.MaxHealth)
+}
+
+func (monster *Monster) specialAttack(character *Character) {
+	damages := monster.AttackDamage * 2
+	character.Health -= damages
+	printAttack(*monster, *character, damages)
+}
+
+func fight(character *Character, monster *Monster) {
 	if !isThereMonster {
-		InitMonster(character.getLevel()*10+5+rand.Intn(15), character.getLevel()+1+rand.Intn(4), RandomRace())
+		InitRandomMonster(character.getLevel()*10+5+rand.Intn(15), character.getLevel()+1+rand.Intn(4), RandomRace())
 		colorPrintf("You search for a new monster...\n%v found, he is a %v with %v max health.\n", redString(monster.Name), greenString(monster.Race.Name), redString(str(monster.MaxHealth)))
+	}
+
+	if monster.Name == trainingMonster {
+		colorPrintf("Hi, I'm Tulius, an Imperial, I'm here to kill you but, it's training, so you can just die, no worries.")
 	}
 
 	turn := 0

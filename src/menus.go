@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 func combatMenu(turn int, character *Character, enemy *Monster) bool {
@@ -110,7 +111,7 @@ func showMainMenu() {
 	green("2: Show Inventory.")
 	blue("3: Speak to Merchant.")
 	magenta("4: Speak to Blacksmith.")
-	monsterText := "Fight with training goblin."
+	monsterText := fmt.Sprintf("Fight with %v.", strings.ToLower(trainingMonster))
 	if !isThereMonster {
 		monsterText = "Search monster."
 	}
