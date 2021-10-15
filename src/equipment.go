@@ -75,7 +75,11 @@ func (equipment *Equipment) Show() string {
 	}
 
 	return fmt.Sprintf(
-		`HEAD: %v, TUNIC: %v, BOOTS: %v, WEAPON: %v`,
+`	HEAD: %v
+	TUNIC: %v
+	BOOTS: %v
+	WEAPON: %v
+`,
 		blueString(head),
 		blueString(tunic),
 		blueString(boots),

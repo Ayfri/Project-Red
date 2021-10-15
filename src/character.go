@@ -85,13 +85,15 @@ func (character *Character) displayInfo() {
 		`Name: %v
 Race: %v
 Health: %v
+Attack Damages: %v
 Lvl: %v
 Money: %v
-Equipment: %v
-`,
+Equipment:
+%v`,
 		boldString(character.Name),
 		greenString(character.Race.Name),
 		redString(fmt.Sprintf("%v/%v", character.getHealth(), character.getMaxHealth())),
+		redString(str(character.Equipment.Weapon.AttackDamage)),
 		magentaString(str(character.getLevel())),
 		yellowString(str(character.Money)),
 		character.Equipment.Show(),
