@@ -163,29 +163,6 @@ func (character *Character) HandleAttack(weapon *Item, damages int) {
 	character.Health -= damages
 }
 
-func InitCharacter() {
-	character = Character{
-		Name:      "Ayfri",
-		Race:      races[0],
-		MaxHealth: 100,
-		Health:    40,
-		Money:     100,
-		Skill: []string{
-			"Punch",
-		},
-		Inventory: Inventory{
-			"Health Potions": Item{
-				Count: 3,
-				Name:  "Health Potion",
-				Price: 0,
-				OnUse: func(item Item) {
-					character.takeHealthPotion()
-				},
-			},
-		},
-	}
-}
-
 func (character *Character) parallelAttack(monster *Monster, times int, wait int, damages int) {
 	for i := 0; i < times; i++ {
 		go func() {
