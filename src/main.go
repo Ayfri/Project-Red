@@ -18,10 +18,7 @@ func main() {
 	InitMonster(40, 5, race, trainingMonster)
 	showMainMenu()
 	for {
-		input, quit := InputNumber()
-		if quit {
-			os.Exit(1)
-		}
+		input, _ := InputNumber()
 
 		switch input {
 		case 1:
