@@ -77,7 +77,7 @@ func (inventory *Inventory) makeSelector(selectorType SelectorType, whenQuit fun
 						item.OnUse(item)
 					}
 					inventory.removeItem(name, 1)
-					if item.EquipmentType == Head || item.EquipmentType == Tunic || item.EquipmentType == Boots {
+					if item.EquipmentType != 0 {
 						printItemTaken("%v equipped.\n", item.Name)
 					} else {
 						printItemTaken("One %v used.\n", item.Name)

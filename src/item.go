@@ -17,9 +17,9 @@ const poisonousPotion = "Poisonous Potion"
 type Item struct {
 	AttackDamage     int
 	AttackType       AttackType
+	Count            int
 	EquipHealthBoost int
 	EquipmentType    EquipmentType
-	Count            int
 	ForgingPrice     int
 	ForgingRequires  ForgingRequires
 	Name             string

@@ -31,6 +31,30 @@ func printAttack(attacker interface{}, receiver interface{}, damages int) {
 	}
 }
 
+func printSpecialAttack(attacker interface{}, receiver interface{}, damages int, attackType AttackType) {
+	var attackName string
+	switch attackType {
+	case Melee:
+		attackName = "melee"
+	case Magic:
+		attackName = "magic"
+	case Poison:
+		attackName = "Poison"
+	case Fire:
+		attackName = "fire"
+	}
+	switch receiver.(type) {
+	case Monster:
+		monster := receiver.(Monster)
+		colorPrintf("%v attacked %v with a %v attack, %v damages taken.\n", boldString(attacker.(Character).Name), redString(monster.Name), attackName, str(damages))
+		monster.printHealth()
+	case Character:
+		character := receiver.(Character)
+		colorPrintf("%v attacked %v with a %v attack, %v damages taken.\n", redString(attacker.(Monster).Name), boldString(character.Name), attackName, str(damages))
+		character.printHealth()
+	}
+}
+
 func colorPrintf(format string, vars ...string) {
 	result := make([]interface{}, len(vars))
 	for i, s := range vars {

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"math/rand"
 	"sort"
 	"strings"
 	"time"
@@ -33,6 +34,11 @@ const (
 	Poison
 	Magic
 )
+
+func RandomAttackType() AttackType {
+	attackTypes := []AttackType{Melee, Magic, Fire, Poison}
+	return attackTypes[rand.Intn(len(attackTypes))]
+}
 
 func (character *Character) attack(monster *Monster) {
 	weapon := character.Equipment.Weapon

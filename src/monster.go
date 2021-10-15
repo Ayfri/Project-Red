@@ -14,6 +14,7 @@ type Monster struct {
 }
 
 const trainingMonster = "Training Imperial"
+
 var monster Monster
 var isInCombat bool
 var isThereMonster = true
@@ -32,9 +33,15 @@ func (monster *Monster) attack(character *Character) {
 	printAttack(*monster, *character, monster.AttackDamage)
 }
 
+func (monster *Monster) criticalAttack(character *Character) {
+	damages := monster.AttackDamage * 2
+	character.Health -= damages
+	printAttack(*monster, *character, damages)
+}
+
 func (monster *Monster) goblinPattern(turn int, character *Character) {
 	if turn%3 == 0 {
-		monster.specialAttack(character)
+		monster.criticalAttack(character)
 	} else {
 		monster.attack(character)
 	}
@@ -57,22 +64,26 @@ func (monster *Monster) printHealth() {
 	colorPrintf("Monster %v Health\n", redString(monster.showHealth()))
 }
 
-func(monster *Monster) randomPattern(turn int, character *Character) {
-	if rand.Intn(10) %3 == 0 {
-		monster.specialAttack(character)
+func (monster *Monster) randomPattern(turn int, character *Character) {
+	if r := rand.Intn(10); r%3 == 0 {
+		monster.criticalAttack(character)
+	} else if r%2 == 0 {
+		monster.specialAttack(character, RandomAttackType())
 	} else {
 		monster.attack(character)
 	}
 }
 
-func (monster *Monster) showHealth() string {
-	return fmt.Sprintf("%v/%v", monster.Health, monster.MaxHealth)
+func (monster *Monster) specialAttack(character *Character, attackType AttackType) {
+	item := &Item{
+		AttackType: attackType,
+	}
+	character.HandleAttack(item, monster.AttackDamage)
+	printSpecialAttack(*monster, *character, monster.AttackDamage, attackType)
 }
 
-func (monster *Monster) specialAttack(character *Character) {
-	damages := monster.AttackDamage * 2
-	character.Health -= damages
-	printAttack(*monster, *character, damages)
+func (monster *Monster) showHealth() string {
+	return fmt.Sprintf("%v/%v", monster.Health, monster.MaxHealth)
 }
 
 func fight(character *Character, monster *Monster) {
@@ -95,7 +106,12 @@ func fight(character *Character, monster *Monster) {
 		if stop {
 			break
 		}
-		monster.goblinPattern(turn, character)
+		if monster.Name == trainingMonster {
+			monster.goblinPattern(turn, character)
+		} else {
+			monster.randomPattern(turn, character)
+		}
+
 		if character.getHealth() <= 0 {
 			character.dead()
 			break
