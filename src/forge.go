@@ -43,6 +43,7 @@ var blacksmith = NPC{
 			},
 		},
 		dragonBane: Item{
+			AttackDamage:    20,
 			Count:           1,
 			Name:            dragonBane,
 			ForgingRequires: ForgingRequires{iron: 4, fiber: 1},
